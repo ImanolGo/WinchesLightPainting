@@ -68,8 +68,15 @@ void ofApp::update()
 
 void ofApp::draw() {
 
+    if(dmx.isConnected()){
+        ofBackground(10, 90, 10);
+    }
+    else{
+        ofBackground(90, 10, 10);
+    }
+    
     for(int i=0; i<channels.size(); i++){
-        ofSetColor(channels[i]);
+        ofSetColor(channels[i],channels[i],channels[i], 150);
         float w =  ofGetWidth() / channels.size();
         ofDrawRectangle(w*i, 0, w, ofGetHeight());
     }
