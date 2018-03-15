@@ -110,6 +110,7 @@ void DmxManager::exit()
 {
     this->setPanic();
     ofSleepMillis(300);
+    m_dmx.disconnect();
 }
 
 void DmxManager::onPanicChange(bool& value)

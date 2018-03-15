@@ -76,15 +76,28 @@ void GuiManager::setupGuiParameters()
 
 
 void GuiManager::setupTimeLineParameters()
-{    
+{
+    auto timeLineManager = &AppManager::getInstance().getTimeLineManager();
+    
+    m_timeLineDuration.set("Duration", 30, 30, 360);
+    m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onDurationChange);
+    m_parameters.add(m_timeLineDuration);
+    
+    m_timeLineSegmentDuration.set("Segment Duration", 2, 0, 30);
+    m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onSegmentDurationChange);
+    m_parameters.add(m_timeLineDuration);
+    
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("TIMELINE", ofColor::greenYellow);
     
-    m_timeLineDuration.set("Duration", 30, 30, 360);
     folder->addSlider(m_timeLineDuration);
-    
-    m_timeSegmentLineDuration.set("Segment Duration", 2, 0, 30);
-    folder->addSlider(m_timeSegmentLineDuration);
+    folder->addSlider(m_timeLineSegmentDuration);
+    folder->addButton("* PlayF");
+    folder->addButton("* PlayB");
+    folder->addButton("* Stop");
+    folder->addButton("* Next");
+    folder->addButton("* Previous");
+    folder->addButton("* Reset");
     folder->expand();
 }
 
@@ -198,6 +211,32 @@ void GuiManager::onButtonEvent(ofxDatGuiButtonEvent e)
     {
         this->onPanicToggleChange(true);
     }
+    else if(e.target->getName() == "* Next")
+    {
+        AppManager::getInstance().getTimeLineManager().playNext();
+    }
+    else if(e.target->getName() == "* Previous")
+    {
+        AppManager::getInstance().getTimeLineManager().playPrevious();
+    }
+    else if(e.target->getName() == "* Reset")
+    {
+        AppManager::getInstance().getTimeLineManager().reset();
+    }
+    
+    else if(e.target->getName() == "* PlayF")
+    {
+        AppManager::getInstance().getTimeLineManager().playForward();
+    }
+    
+    else if(e.target->getName() == "* PlayB")
+    {
+        AppManager::getInstance().getTimeLineManager().playBackwards();
+    }
+    else if(e.target->getName() == "* Stop")
+    {
+        AppManager::getInstance().getTimeLineManager().stop();
+    }
 }
 
 
@@ -216,5 +255,15 @@ void GuiManager::onMatrixEvent(ofxDatGuiMatrixEvent e)
     cout << "onMatrixEvent " << e.child << " : " << e.enabled << endl;
 }
 
+
+void GuiManager::onDurationChange(float& value)
+{
+    m_timeLineDuration = ofClamp(value, m_timeLineDuration.getMin(),  m_timeLineDuration.getMax());
+}
+
+void GuiManager::onSegmentDurationChange(float& value)
+{
+    m_timeLineSegmentDuration = ofClamp(value, m_timeLineSegmentDuration.getMin(),  m_timeLineSegmentDuration.getMax());
+}
 
 

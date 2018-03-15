@@ -98,29 +98,28 @@ void VisualEffectsManager::removeVisualEffects(ofPtr<BasicVisual> visual, const 
 	}
 }
 
-void VisualEffectsManager::createFadeEffect(ofPtr<BasicVisual> visual, double startAlpha,double endAlpha, EffectSettings& settings)
+ofPtr<FadeVisual> VisualEffectsManager::createFadeEffect(ofPtr<BasicVisual> visual, double startAlpha,double endAlpha, EffectSettings& settings)
 {
-    if(!visual)
-        return;
 
 	ofPtr<FadeVisual> fadeVisual = ofPtr<FadeVisual>(new FadeVisual(visual,settings.function, settings.type));
 	fadeVisual->setParameters(startAlpha,endAlpha,settings.animationTime);
 	fadeVisual->start(settings.startAnimation);
 	this->addVisualEffect(fadeVisual);
+    return fadeVisual;
 }
 
-void VisualEffectsManager::createFadeEffect(ofPtr<BasicVisual> visual, double endAlpha, EffectSettings& settings)
+ofPtr<FadeVisual> VisualEffectsManager::createFadeEffect(ofPtr<BasicVisual> visual, double endAlpha, EffectSettings& settings)
 {
-    if(!visual)
-        return;
     
     ofPtr<FadeVisual> fadeVisual = ofPtr<FadeVisual>(new FadeVisual(visual,settings.function, settings.type));
     fadeVisual->setParameters(endAlpha,settings.animationTime);
     fadeVisual->start(settings.startAnimation);
     this->addVisualEffect(fadeVisual);
+    
+    return fadeVisual;
 }
 
-void VisualEffectsManager::createValueEffect(ofPtr<BasicVisual> visual, double start,double end, EffectSettings& settings)
+ofPtr<ValueEffect> VisualEffectsManager::createValueEffect(ofPtr<BasicVisual> visual, double start,double end, EffectSettings& settings)
 {
     if(!visual)
         return;
@@ -129,11 +128,12 @@ void VisualEffectsManager::createValueEffect(ofPtr<BasicVisual> visual, double s
     valueEffect->setParameters(start,end,settings.animationTime);
     valueEffect->start(settings.startAnimation);
     this->addVisualEffect(valueEffect);
+    return valueEffect;
 }
 
 
 
-void VisualEffectsManager::createValueEffect(ofPtr<BasicVisual> visual, double end, EffectSettings& settings)
+ofPtr<ValueEffect> VisualEffectsManager::createValueEffect(ofPtr<BasicVisual> visual, double end, EffectSettings& settings)
 {
     if(!visual)
         return;
@@ -142,29 +142,27 @@ void VisualEffectsManager::createValueEffect(ofPtr<BasicVisual> visual, double e
     valueEffect->setParameters(end,settings.animationTime);
     valueEffect->start(settings.startAnimation);
     this->addVisualEffect(valueEffect);
+    return valueEffect;
 }
 
 
-void VisualEffectsManager::createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& startScale,const ofVec2f& endScale, EffectSettings& settings)
+ofPtr<ScaleVisual> VisualEffectsManager::createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& startScale,const ofVec2f& endScale, EffectSettings& settings)
 {
-    if(!visual)
-        return;
 
 	ofPtr<ScaleVisual> scaleVisual = ofPtr<ScaleVisual>(new ScaleVisual(visual,settings.function, settings.type));
 	scaleVisual->setParameters(startScale,endScale,settings.animationTime);
 	scaleVisual->start(settings.startAnimation);
 	this->addVisualEffect(scaleVisual);
+    return scaleVisual;
 }
 
-void VisualEffectsManager::createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& endScale, EffectSettings& settings)
+ofPtr<ScaleVisual> VisualEffectsManager::createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& endScale, EffectSettings& settings)
 {
-    if(!visual)
-        return;
-
 	ofPtr<ScaleVisual> scaleVisual = ofPtr<ScaleVisual>(new ScaleVisual(visual, settings.function, settings.type));
 	scaleVisual->setParameters(endScale,settings.animationTime);
 	scaleVisual->start(settings.startAnimation);
 	this->addVisualEffect(scaleVisual);
+    return scaleVisual;
 }
 
 void VisualEffectsManager::popUpAnimation(ofPtr<BasicVisual> visual, EffectSettings& settings)
@@ -186,49 +184,45 @@ void VisualEffectsManager::popUpAnimation(ofPtr<BasicVisual> visual, EffectSetti
 	this->addVisualEffect(scaleVisual);
 }
 
-void VisualEffectsManager::createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& startPos,const ofVec3f& endPos, EffectSettings& settings)
+ofPtr<MoveVisual> VisualEffectsManager::createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& startPos,const ofVec3f& endPos, EffectSettings& settings)
 {
-    if(!visual)
-        return;
-
+   
 	ofPtr<MoveVisual> moveVisual = ofPtr<MoveVisual>(new MoveVisual(visual, settings.function, settings.type));
 	moveVisual->setParameters(startPos,endPos,settings.animationTime);
 	moveVisual->start(settings.startAnimation);
 	this->addVisualEffect(moveVisual);
+    return moveVisual;
 }
 
-void VisualEffectsManager::createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& endPos, EffectSettings& settings)
+ofPtr<MoveVisual> VisualEffectsManager::createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& endPos, EffectSettings& settings)
 {
-    if(!visual)
-        return;
 
 	ofPtr<MoveVisual> moveVisual = ofPtr<MoveVisual>(new MoveVisual(visual, settings.function, settings.type));
 	moveVisual->setParameters(endPos,settings.animationTime);
 	moveVisual->start(settings.startAnimation);
 	this->addVisualEffect(moveVisual);
+    return moveVisual;
 }
 
 
-void VisualEffectsManager::createColorEffect(ofPtr<BasicVisual> visual,const ofColor& startColor,const ofColor& endColor, EffectSettings& settings)
+ofPtr<ColorEffect> VisualEffectsManager::createColorEffect(ofPtr<BasicVisual> visual,const ofColor& startColor,const ofColor& endColor, EffectSettings& settings)
 {
-    if(!visual)
-        return;
-
+ 
 	ofPtr<ColorEffect> colorEffect = ofPtr<ColorEffect>(new ColorEffect(visual, settings.function, settings.type));
 	colorEffect->setParameters(startColor,endColor,settings.animationTime);
 	colorEffect->start(settings.startAnimation);
 	this->addVisualEffect(colorEffect);
+    return colorEffect;
 }
 
-void VisualEffectsManager::createColorEffect(ofPtr<BasicVisual> visual, const ofColor& endColor, EffectSettings& settings)
+ofPtr<ColorEffect> VisualEffectsManager::createColorEffect(ofPtr<BasicVisual> visual, const ofColor& endColor, EffectSettings& settings)
 {
-    if(!visual)
-        return;
-    
+
     ofPtr<ColorEffect> colorEffect = ofPtr<ColorEffect>(new ColorEffect(visual, settings.function, settings.type));
     colorEffect->setParameters(endColor,settings.animationTime);
     colorEffect->start(settings.startAnimation);
     this->addVisualEffect(colorEffect);
+    return colorEffect;
 }
 
 

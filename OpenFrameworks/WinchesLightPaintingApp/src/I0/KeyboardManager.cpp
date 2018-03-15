@@ -50,6 +50,33 @@ void KeyboardManager::keyPressed(ofKeyEventArgs &e)
         AppManager::getInstance().getGuiManager().toggleGui();
     }
     
+    else if(key == OF_KEY_RIGHT) {
+        AppManager::getInstance().getTimeLineManager().playNext();
+    }
+    
+    else if(key == OF_KEY_LEFT) {
+        AppManager::getInstance().getTimeLineManager().playPrevious();
+    }
+    
+    else if(key == 'r' || key == 'R') {
+        AppManager::getInstance().getTimeLineManager().reset();
+    }
+    
+    else if(key == 'f' || key == 'F')
+    {
+        AppManager::getInstance().getTimeLineManager().playForward();
+    }
+    
+    else if(key == 'b' || key == 'B')
+    {
+        AppManager::getInstance().getTimeLineManager().playBackwards();
+    }
+    
+    else if(key == 's' || key == 'S')
+    {
+        AppManager::getInstance().getTimeLineManager().stop();
+    }
+    
 }
 
 void KeyboardManager::keyReleased(ofKeyEventArgs &e)

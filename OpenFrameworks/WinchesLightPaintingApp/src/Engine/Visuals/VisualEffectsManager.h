@@ -59,34 +59,34 @@ public:
     //==========================================================================
 
     //! Creates a certain fading visual effect
-	void createFadeEffect(ofPtr<BasicVisual> visual, double startAlpha,double endAlpha, EffectSettings& settings);
+	ofPtr<FadeVisual>  createFadeEffect(ofPtr<BasicVisual> visual, double startAlpha,double endAlpha, EffectSettings& settings);
     
     //! Creates a certain fading visual effect
-    void createFadeEffect(ofPtr<BasicVisual> visual, double endAlpha, EffectSettings& settings);
+    ofPtr<FadeVisual>  createFadeEffect(ofPtr<BasicVisual> visual, double endAlpha, EffectSettings& settings);
     
     //! Creates a certain value animation effect
-    void createValueEffect(ofPtr<BasicVisual> visual, double start,double end, EffectSettings& settings);
+    ofPtr<ValueEffect> createValueEffect(ofPtr<BasicVisual> visual, double start,double end, EffectSettings& settings);
     
     //! Creates a certain value animation effect
-    void createValueEffect(ofPtr<BasicVisual> visual, double end, EffectSettings& settings);
+    ofPtr<ValueEffect> createValueEffect(ofPtr<BasicVisual> visual, double end, EffectSettings& settings);
 
 	//! Creates a certain scaling visual effect
-	void createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& startScale,const ofVec2f& endScale, EffectSettings& settingse);
+	ofPtr<ScaleVisual> createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& startScale,const ofVec2f& endScale, EffectSettings& settingse);
 
 	//! Creates a certain scaling visual effect
-	void createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& endScale, EffectSettings& settings);
+	ofPtr<ScaleVisual> createScaleEffect(ofPtr<BasicVisual> visual, const ofVec2f& endScale, EffectSettings& settings);
 
 	//! Creates a certain moving visual effect
-	void createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& startPos,const ofVec3f& endPos, EffectSettings& settings);
+	ofPtr<MoveVisual> createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& startPos,const ofVec3f& endPos, EffectSettings& settings);
 
 	//! Creates a certain moving visual effect
-	void createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& endPos, EffectSettings& settings);
+	ofPtr<MoveVisual> createMoveEffect(ofPtr<BasicVisual> visual, const ofVec3f& endPos, EffectSettings& settings);
 
     //! Creates a certain color visual effect
-    void createColorEffect(ofPtr<BasicVisual> visual, const ofColor& endColor, EffectSettings& settings);
+    ofPtr<ColorEffect> createColorEffect(ofPtr<BasicVisual> visual, const ofColor& endColor, EffectSettings& settings);
     
 	//! Creates a certain color visual effect
-	void createColorEffect(ofPtr<BasicVisual> visual,const ofColor& startColor,const ofColor& endColor, EffectSettings& settings);
+    ofPtr<ColorEffect> createColorEffect(ofPtr<BasicVisual> visual,const ofColor& startColor,const ofColor& endColor, EffectSettings& settings);
 
 	//! Creates a certain color visual effect
 	void popUpAnimation(ofPtr<BasicVisual> visual, EffectSettings& settings);

@@ -13,7 +13,8 @@
 #include "Manager.h"
 #include "ImageVisual.h"
 #include "RectangleVisual.h"
-#include "ofxSimpleTimer.h"
+#include "VisualEffects.h"
+#include "TextVisual.h"
 
 
 //========================== class TimeLineManager =======================================
@@ -27,6 +28,7 @@
 
 class TimeLineManager: public Manager
 {
+    enum PlaybackMode { Stop, PlayForward, PlayBackwards};
 
 public:
     //! Constructor
@@ -44,34 +46,69 @@ public:
     int getNumPositions() const {return m_currentFrame;}
     
     float getCurrentTime() const {return m_time;}
-
-
+    
+    void onDurationChange(float& value);
+    
+    void onSegmentDurationChange(float& value);
+    
+    void playNext();
+    
+    void playForward(){m_playMode = PlayForward;}
+    
+    void playBackwards(){m_playMode = PlayBackwards;}
+    
+    void stop(){m_playMode = Stop;}
+    
+    void playPrevious();
+    
+    void reset();
+    
 private:
     
     void setupImages();
     
     void setupRectangles();
     
+    void setupText();
+    
     void setupFbo();
     
     void updateFbo();
+    
+    void updateTime();
+    
+    void checkPlayback();
+    
+    bool isMoving();
     
     void drawFbo();
     
     void drawImages();
     
+    void drawText();
+    
+    void moveToFrame(int frame, float duration);
    
 private:
     
+    typedef  map<string, ofPtr<TextVisual> >      TextMap;            ///< defines a map of Text attached to an identifier
     typedef  vector<ImageVisual> ImageVector;                  ///< defines a vecotor of images
 
-    ImageVector       m_images;
-    RectangleVisual   m_cursorRectangle;
-    RectangleVisual   m_timeRect;
-    ofFbo             m_fbo;
+    ImageVector                 m_images;
+    TextMap                     m_text;
+    ofPtr<RectangleVisual>      m_timeRect;
+    ofFbo                       m_fbo;
+    ofPtr<MoveVisual>           m_moveEffect;
+    float                       m_duration;
+    float                       m_segmentDuration;
+    float                       m_resetTime;
+    float                       m_timeWidth;
+    float                       m_margin;
     
-    int              m_currentFrame;
-    float            m_time;
+    int                         m_currentFrame;
+    float                       m_time;
+    PlaybackMode                m_playMode;
+    
     
 };
 

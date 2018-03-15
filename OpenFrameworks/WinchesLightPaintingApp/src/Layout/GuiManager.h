@@ -68,6 +68,10 @@ public:
     
     void onPanicToggleChange(bool value) {m_panicToggle;}
     
+    void onDurationChange(float& value);
+    
+    void onSegmentDurationChange(float& value);
+    
 private:
     
     void setupGuiParameters();
@@ -91,7 +95,7 @@ private:
     ofParameterGroup        m_parameters;
     
     ofParameter<float> m_timeLineDuration;
-    ofParameter<float> m_timeSegmentLineDuration;
+    ofParameter<float> m_timeLineSegmentDuration;
     
     ofParameter<bool> m_panicToggle;
     ofParameter<int> m_dmxWinch;
