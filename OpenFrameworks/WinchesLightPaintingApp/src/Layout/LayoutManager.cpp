@@ -140,18 +140,22 @@ void LayoutManager::update()
 {
     if(!m_initialized)
         return;
-//
-//    for (auto fbo : m_fbos)
-//    {
-//        fbo.second->begin();
-//        ofClear(255,0,0);
-//        fbo.second->end();
-//    }
+
+    this->updateImageFbo();
+}
+
+
+void LayoutManager::updateImageFbo()
+{
+    string name = "Image";
+    this->begin(name);
+        AppManager::getInstance().getImageManager().draw();
+    this->end(name);
 }
 
 void LayoutManager::createTextVisuals()
 {
-    float size = 18;
+    float size = 14;
     
     for (auto& rect : m_windowRects)
     {
@@ -273,6 +277,28 @@ void LayoutManager::windowResized(int w, int h)
     this->resetWindowFrames();
     this->resetWindowTitles();
 }
+
+
+void LayoutManager::begin(string& name)
+{
+    if(m_fbos.find(name) == m_fbos.end()){
+        return;
+    }
+    
+    m_fbos[name]->begin();
+    ofClear(0);
+    
+}
+
+void LayoutManager::end(string& name)
+{
+    if(m_fbos.find(name) == m_fbos.end()){
+        return;
+    }
+    
+    m_fbos[name]->end();
+}
+
 
 
 

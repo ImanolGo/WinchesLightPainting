@@ -15,6 +15,7 @@
 		082F4D11205AB2F8002E7246 /* Syphon.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 082F4D10205AB2F8002E7246 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08787E17205AD53300AF53BE /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E13205AD53300AF53BE /* ofxCsv.cpp */; };
 		08787E18205AD53300AF53BE /* ofxCsvRow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E15205AD53300AF53BE /* ofxCsvRow.cpp */; };
+		08787E1C205AE14C00AF53BE /* ImageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E1B205AE14C00AF53BE /* ImageManager.cpp */; };
 		0C8E6109528865C738BFD818 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A78388489306C3277E37BA4F /* SyphonNameboundClient.m */; };
 		12451834526FB5CD4EA0D0DF /* ofxSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B778D8F951EC700B066390 /* ofxSceneManager.cpp */; };
 		15FA0788DED9B05645862A3D /* ofxEasingCubic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2647D2EA00878BEB0023C444 /* ofxEasingCubic.cpp */; };
@@ -27,7 +28,6 @@
 		31FD9151D0665681A27C77D1 /* ofxEasingCirc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA6CE035C1174BA314BA0A56 /* ofxEasingCirc.cpp */; };
 		3377D2E177219519D8992BFC /* LedsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05DFB296F827AFE646C64B01 /* LedsManager.cpp */; };
 		3A6C7D72771284673CBE247D /* ImageVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F661FE0411AA0AC01E34CB7 /* ImageVisual.cpp */; };
-		41495ECD0155116522DCA99A /* VideoManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2990685E1D17096D1F9B64CF /* VideoManager.cpp */; };
 		44954A08B2522C6FE16E629B /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 834CDEC771773ED253C54783 /* ofxTCPClient.cpp */; };
 		46A50237177AED3C6967ABE5 /* ofxEasingExpo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0D87CEDA56BF3FFC8789710 /* ofxEasingExpo.cpp */; };
 		48F94177806B5CB8D3C0F283 /* CameraAnimations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A05F1DCF8180DEEC9FBAE585 /* CameraAnimations.cpp */; };
@@ -144,6 +144,8 @@
 		08787E14205AD53300AF53BE /* ofxCsv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCsv.h; path = Addons/ofxCsv/src/ofxCsv.h; sourceTree = "<group>"; };
 		08787E15205AD53300AF53BE /* ofxCsvRow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCsvRow.cpp; path = Addons/ofxCsv/src/ofxCsvRow.cpp; sourceTree = "<group>"; };
 		08787E16205AD53300AF53BE /* ofxCsvRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCsvRow.h; path = Addons/ofxCsv/src/ofxCsvRow.h; sourceTree = "<group>"; };
+		08787E1A205AE14C00AF53BE /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageManager.h; path = Visuals/ImageManager.h; sourceTree = "<group>"; };
+		08787E1B205AE14C00AF53BE /* ImageManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImageManager.cpp; path = Visuals/ImageManager.cpp; sourceTree = "<group>"; };
 		08C5194B0C92DDA2A7539395 /* core.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = core.h; path = src/Addons/ofxUnicode/libs/utf8cpp/src/utf8_v2_3_1/source/utf8/core.h; sourceTree = SOURCE_ROOT; };
 		09BB1D7613A1F9D8E8B11D7A /* KeyboardManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = KeyboardManager.h; path = src/I0/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
@@ -171,7 +173,6 @@
 		2647D2EA00878BEB0023C444 /* ofxEasingCubic.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxEasingCubic.cpp; path = src/Addons/ofxTween/src/Easings/ofxEasingCubic.cpp; sourceTree = SOURCE_ROOT; };
 		27078AD68844F36256863780 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = SyphonNameboundClient.h; path = src/Addons/ofxSyphon/libs/Syphon/src/SyphonNameboundClient.h; sourceTree = SOURCE_ROOT; };
 		28750EB1F29939E567A9840E /* ofxDatGuiIntObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiIntObject.h; path = src/Addons/ofxDatGui/src/core/ofxDatGuiIntObject.h; sourceTree = SOURCE_ROOT; };
-		2990685E1D17096D1F9B64CF /* VideoManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = VideoManager.cpp; path = src/Visuals/VideoManager.cpp; sourceTree = SOURCE_ROOT; };
 		2A2B7E7FDC1CFF4A547CC661 /* VisualEffects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = VisualEffects.h; path = src/Engine/Visuals/VisualEffects.h; sourceTree = SOURCE_ROOT; };
 		2ADFDE8CC80D73B7C75CB458 /* ofxTCPManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTCPManager.h; path = ../../../../../../../../Applications/of_v0.9.8_osx_release/addons/ofxNetwork/src/ofxTCPManager.h; sourceTree = SOURCE_ROOT; };
 		2B7E328B97B36DC3EFCF35D9 /* ofxDatGuiComponent.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDatGuiComponent.cpp; path = src/Addons/ofxDatGui/src/core/ofxDatGuiComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -206,7 +207,6 @@
 		5D1C8C24F686DE6EBC86E115 /* ofxTween.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTween.cpp; path = src/Addons/ofxTween/src/ofxTween.cpp; sourceTree = SOURCE_ROOT; };
 		5FA64D51DA6D1619944A259C /* ResourceManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ResourceManager.cpp; path = src/Engine/Resources/ResourceManager.cpp; sourceTree = SOURCE_ROOT; };
 		64A49DF5E7D940CE6A916D29 /* svgtiny_list.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = svgtiny_list.cpp; path = src/Addons/ofxSvg/libs/svgTiny/src/svgtiny_list.cpp; sourceTree = SOURCE_ROOT; };
-		67EDBB787A2D6F21FFDD4446 /* VideoManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = VideoManager.h; path = src/Visuals/VideoManager.h; sourceTree = SOURCE_ROOT; };
 		682CD55D28B06CEDCFD63D68 /* CameraManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CameraManager.h; path = src/Engine/3D/CameraManager.h; sourceTree = SOURCE_ROOT; };
 		68A02C9D01ED911C09E9874B /* ViewManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ViewManager.h; path = src/Engine/Visuals/ViewManager.h; sourceTree = SOURCE_ROOT; };
 		6AD27DF6955DC2E91BE17FE3 /* ofxEasingLinear.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxEasingLinear.cpp; path = src/Addons/ofxTween/src/Easings/ofxEasingLinear.cpp; sourceTree = SOURCE_ROOT; };
@@ -790,8 +790,8 @@
 				C86ED87E3023A2A0319CD3FE /* Led.h */,
 				05DFB296F827AFE646C64B01 /* LedsManager.cpp */,
 				CB7358D2D4E2FB0D71420FAE /* LedsManager.h */,
-				2990685E1D17096D1F9B64CF /* VideoManager.cpp */,
-				67EDBB787A2D6F21FFDD4446 /* VideoManager.h */,
+				08787E1B205AE14C00AF53BE /* ImageManager.cpp */,
+				08787E1A205AE14C00AF53BE /* ImageManager.h */,
 			);
 			name = Visuals;
 			sourceTree = "<group>";
@@ -1105,6 +1105,7 @@
 				706AD932A4A8897398E27902 /* easing_terms_of_use.html in Sources */,
 				BB510419376F489E3A3371C7 /* ofxEasing.cpp in Sources */,
 				E8FCFBD2BB05D10A257C49CA /* ofxEasingBack.cpp in Sources */,
+				08787E1C205AE14C00AF53BE /* ImageManager.cpp in Sources */,
 				AF31AC9CB51C7D2710025360 /* ofxEasingBounce.cpp in Sources */,
 				31FD9151D0665681A27C77D1 /* ofxEasingCirc.cpp in Sources */,
 				15FA0788DED9B05645862A3D /* ofxEasingCubic.cpp in Sources */,
@@ -1151,7 +1152,6 @@
 				2E365EF9FF7B8963483CF162 /* Led.cpp in Sources */,
 				3377D2E177219519D8992BFC /* LedsManager.cpp in Sources */,
 				082F4D0A205A82A4002E7246 /* WinchesManager.cpp in Sources */,
-				41495ECD0155116522DCA99A /* VideoManager.cpp in Sources */,
 				44954A08B2522C6FE16E629B /* ofxTCPClient.cpp in Sources */,
 				73698588602490A942EE41DA /* ofxTCPManager.cpp in Sources */,
 				89BA7777CF92A359ABAF417D /* ofxTCPServer.cpp in Sources */,

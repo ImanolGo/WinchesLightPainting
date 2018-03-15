@@ -51,6 +51,10 @@ public:
     void windowResized(int w, int h);
     
     ofPtr<ofRectangle> getWindowRect(string& name) {return m_windowRects[name];}
+    
+    void begin(string& name);
+    
+    void end(string& name);
  
 private:
 
@@ -89,6 +93,8 @@ private:
     void drawRectangles();
     
     void drawText();
+    
+    void updateImageFbo();
 
 private:
 

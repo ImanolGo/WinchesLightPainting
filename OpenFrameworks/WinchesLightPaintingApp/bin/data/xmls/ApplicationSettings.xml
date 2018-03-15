@@ -15,7 +15,7 @@
 
     <texture name="Equalizer" path="images/general/equalizer.png"/>
     <texture name="Brush" path="images/general/brush.png"/>
-    <texture name="Abstract1" path="images/leds/abstract1.png"/>
+    <texture name="Abstract" path="images/leds/abstract1.png"/>
     
 
   </textures>

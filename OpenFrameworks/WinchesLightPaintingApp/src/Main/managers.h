@@ -21,3 +21,4 @@
 #include "UdpManager.h"
 #include "WinchesManager.h"
 #include "LedsManager.h"
+#include "ImageManager.h"

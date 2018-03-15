@@ -74,6 +74,9 @@ public:
     //! Returns the leds manager
     LedsManager&  getLedsManager() { return m_ledsManager; }
     
+    //! Returns the image manager
+    ImageManager&  getImageManager() { return m_imageManager; }
+    
     //==========================================================================
     
     void toggleDebugMode();
@@ -117,6 +120,7 @@ private:
     DmxManager               m_dmxManager;               ///< Manages the DMX communication
     WinchesManager           m_winchesManager;           ///< Manages the winches
     LedsManager              m_ledsManager;              ///< Manages the leds
+    ImageManager             m_imageManager;             ///< Manages the image 
     bool                     m_debugMode;
 };
 
