@@ -143,6 +143,7 @@ void LayoutManager::update()
 
     this->updateImageFbo();
     this->updateTimeLineFbo();
+    this->updateLedsFbo();
 }
 
 
@@ -163,6 +164,17 @@ void LayoutManager::updateTimeLineFbo()
     this->end(name);
 }
 
+void LayoutManager::updateLedsFbo()
+{
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    
+    string name = "Leds";
+    this->begin(name);
+    ofClear(0);
+        AppManager::getInstance().getLedsManager().draw(width, height);
+    this->end(name);
+}
 
 
 void LayoutManager::createTextVisuals()

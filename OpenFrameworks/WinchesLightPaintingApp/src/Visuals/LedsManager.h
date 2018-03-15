@@ -67,6 +67,8 @@ public:
     
     void showChannels(bool _showChannels);
     
+    void setColor(int index, const ofColor& color);
+    
 private:
     
     

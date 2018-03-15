@@ -12,6 +12,7 @@
 
 #include "Manager.h"
 #include "ImageVisual.h"
+#include "RectangleVisual.h"
 
 
 //========================== class ImageManager ==============================
@@ -41,13 +42,21 @@ public:
     //! Draw the Video Manager
     void draw();
     
+    int getHeight() const {return m_image.getOriginalHeight();}
+    
 private:
     
     void setupFbo();
     
     void setupImage();
     
+    void setupRectangle();
+    
     void updateFbo();
+    
+    void updateRectangle();
+    
+    void updateColors();
     
     void drawFbo();
     
@@ -55,6 +64,8 @@ private:
     
     ofFbo           m_fbo;
     ImageVisual     m_image;
+    RectangleVisual m_cursor;
+    ofPixels        m_pixels;
     
 };
 

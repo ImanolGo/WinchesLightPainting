@@ -17,7 +17,7 @@
 const string LedsManager::LEDS_LIST_PATH = "leds/";
 
 
-LedsManager::LedsManager(): Manager(), m_ledsSize(8.0)
+LedsManager::LedsManager(): Manager(), m_ledsSize(2.0)
 {
     //Intentionally left empty
 }
@@ -54,23 +54,20 @@ void LedsManager::setupLeds()
 
 void LedsManager::createLedsPosition()
 {
-    float x_offset = 0.05;
-    float y_offset = 0.05;
-    int num_rows = 30;
-    int num_cols = 10;
+    auto numLeds = AppManager::getInstance().getImageManager().getHeight();
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
     
-    float w = (1.0 - 2.0*x_offset)/num_cols;
-    float h = (1.0 - 2.0*y_offset)/num_rows;
+    int margin = width/50;
+    float frame_width = width - 2*margin;
+    float w = frame_width/numLeds;
     
-    for(int i = 0; i< num_rows; i++){
-        for(int j = 0; j< num_cols; j++){
-            
-            float x = x_offset + j*w;
-            float y = y_offset + i*h;
-            
-            ofPoint ledPosition(x,y,0.0);
-            createLed(ledPosition);
-        }
+    for(int i=0; i<numLeds; i++)
+    {
+        float x = margin + i*w; x/=width;
+        float y = height*0.5; y/=height;
+        
+        this->createLed(ofPoint(x,y));
     }
 }
 
@@ -228,5 +225,14 @@ void LedsManager::showChannels(bool _showChannels)
     {
         led->showId(_showChannels);
     }
+}
+
+void  LedsManager::setColor(int index, const ofColor& color)
+{
+    if(index<0 || index>=m_leds.size()){
+        return;
+    }
+    
+    m_leds[index]->setColor(color);
 }
 

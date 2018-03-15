@@ -74,8 +74,8 @@ void AppManager::setupManagers()
     m_dmxManager.setup();
     m_winchesManager.setup();
     m_timeLineManager.setup();
-    m_ledsManager.setup();
     m_imageManager.setup();
+    m_ledsManager.setup();
     m_guiManager.setup();
     
 }
