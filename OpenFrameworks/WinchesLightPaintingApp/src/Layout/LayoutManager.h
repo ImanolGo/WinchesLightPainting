@@ -95,6 +95,8 @@ private:
     void drawText();
     
     void updateImageFbo();
+    
+    void updateTimeLineFbo();
 
 private:
 

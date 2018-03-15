@@ -73,6 +73,7 @@ void AppManager::setupManagers()
     m_udpManager.setup();
     m_dmxManager.setup();
     m_winchesManager.setup();
+    m_timeLineManager.setup();
     m_ledsManager.setup();
     m_imageManager.setup();
     m_guiManager.setup();
@@ -90,6 +91,7 @@ void AppManager::update()
     m_ledsManager.update();
     m_udpManager.update();
     m_winchesManager.update();
+    m_timeLineManager.update();
     m_layoutManager.update();
     m_guiManager.update();
 }

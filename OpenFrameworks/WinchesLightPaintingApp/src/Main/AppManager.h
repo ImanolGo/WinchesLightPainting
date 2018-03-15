@@ -77,6 +77,9 @@ public:
     //! Returns the image manager
     ImageManager&  getImageManager() { return m_imageManager; }
     
+    //! Returns the timeline manager
+    TimeLineManager&  getTimeLineManager() { return m_timeLineManager; }
+    
     //==========================================================================
     
     void toggleDebugMode();
@@ -120,7 +123,8 @@ private:
     DmxManager               m_dmxManager;               ///< Manages the DMX communication
     WinchesManager           m_winchesManager;           ///< Manages the winches
     LedsManager              m_ledsManager;              ///< Manages the leds
-    ImageManager             m_imageManager;             ///< Manages the image 
+    ImageManager             m_imageManager;             ///< Manages the image
+    TimeLineManager          m_timeLineManager;          ///< Manages the time line
     bool                     m_debugMode;
 };
 

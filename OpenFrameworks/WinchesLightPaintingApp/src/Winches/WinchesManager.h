@@ -35,7 +35,7 @@ public:
     //! Destructor
     virtual ~WinchesManager();
 
-    //! setups DMX
+    //! setup
     void setup();
 
     void update();

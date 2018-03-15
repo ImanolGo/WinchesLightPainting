@@ -85,6 +85,7 @@ void GuiManager::setupTimeLineParameters()
     
     m_timeSegmentLineDuration.set("Segment Duration", 2, 0, 30);
     folder->addSlider(m_timeSegmentLineDuration);
+    folder->expand();
 }
 
 void GuiManager::setupDmxGui()
@@ -115,7 +116,7 @@ void GuiManager::setupDmxGui()
         folder->addSlider(parameter);
     }
     
-    
+    folder->expand();
     m_gui.addBreak();
 }
 

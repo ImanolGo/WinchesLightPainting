@@ -34,6 +34,8 @@ public:
 	//! Draws the image visual
 	virtual void draw();
     
+    void setCentred(bool value) {m_centred = value;}
+    
 protected:
     
     bool     m_centred;          ///< defines if the visual should be centred or not

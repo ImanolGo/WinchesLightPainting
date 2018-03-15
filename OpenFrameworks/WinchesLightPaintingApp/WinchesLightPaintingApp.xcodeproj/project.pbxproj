@@ -16,6 +16,7 @@
 		08787E17205AD53300AF53BE /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E13205AD53300AF53BE /* ofxCsv.cpp */; };
 		08787E18205AD53300AF53BE /* ofxCsvRow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E15205AD53300AF53BE /* ofxCsvRow.cpp */; };
 		08787E1C205AE14C00AF53BE /* ImageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E1B205AE14C00AF53BE /* ImageManager.cpp */; };
+		08787E1F205AE66400AF53BE /* TimeLineManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E1E205AE66400AF53BE /* TimeLineManager.cpp */; };
 		0C8E6109528865C738BFD818 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A78388489306C3277E37BA4F /* SyphonNameboundClient.m */; };
 		12451834526FB5CD4EA0D0DF /* ofxSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B778D8F951EC700B066390 /* ofxSceneManager.cpp */; };
 		15FA0788DED9B05645862A3D /* ofxEasingCubic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2647D2EA00878BEB0023C444 /* ofxEasingCubic.cpp */; };
@@ -146,6 +147,8 @@
 		08787E16205AD53300AF53BE /* ofxCsvRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCsvRow.h; path = Addons/ofxCsv/src/ofxCsvRow.h; sourceTree = "<group>"; };
 		08787E1A205AE14C00AF53BE /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageManager.h; path = Visuals/ImageManager.h; sourceTree = "<group>"; };
 		08787E1B205AE14C00AF53BE /* ImageManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImageManager.cpp; path = Visuals/ImageManager.cpp; sourceTree = "<group>"; };
+		08787E1D205AE66300AF53BE /* TimeLineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeLineManager.h; path = Winches/TimeLineManager.h; sourceTree = "<group>"; };
+		08787E1E205AE66400AF53BE /* TimeLineManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeLineManager.cpp; path = Winches/TimeLineManager.cpp; sourceTree = "<group>"; };
 		08C5194B0C92DDA2A7539395 /* core.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = core.h; path = src/Addons/ofxUnicode/libs/utf8cpp/src/utf8_v2_3_1/source/utf8/core.h; sourceTree = SOURCE_ROOT; };
 		09BB1D7613A1F9D8E8B11D7A /* KeyboardManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = KeyboardManager.h; path = src/I0/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
@@ -343,6 +346,8 @@
 			children = (
 				082F4D09205A82A4002E7246 /* WinchesManager.cpp */,
 				082F4D08205A82A4002E7246 /* WinchesManager.h */,
+				08787E1E205AE66400AF53BE /* TimeLineManager.cpp */,
+				08787E1D205AE66300AF53BE /* TimeLineManager.h */,
 			);
 			name = Winches;
 			sourceTree = "<group>";
@@ -1121,6 +1126,7 @@
 				82C668F7D0DF704AD7D1BB1C /* utf8cpp.html in Sources */,
 				B7993B374B98F50CBD9EC220 /* README.md in Sources */,
 				20DD9BBB631FBC0CDCCFA6B6 /* ofTextConverter.cpp in Sources */,
+				08787E1F205AE66400AF53BE /* TimeLineManager.cpp in Sources */,
 				7E78555D595408C86F902937 /* ofUnicode.cpp in Sources */,
 				EC108074DB75C3CD93A7DADF /* ofUTF8.cpp in Sources */,
 				48F94177806B5CB8D3C0F283 /* CameraAnimations.cpp in Sources */,

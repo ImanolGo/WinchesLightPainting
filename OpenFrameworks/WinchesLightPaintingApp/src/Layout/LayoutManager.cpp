@@ -142,6 +142,7 @@ void LayoutManager::update()
         return;
 
     this->updateImageFbo();
+    this->updateTimeLineFbo();
 }
 
 
@@ -149,9 +150,20 @@ void LayoutManager::updateImageFbo()
 {
     string name = "Image";
     this->begin(name);
-        AppManager::getInstance().getImageManager().draw();
+    AppManager::getInstance().getImageManager().draw();
     this->end(name);
 }
+
+
+void LayoutManager::updateTimeLineFbo()
+{
+    string name = "TimeLine";
+    this->begin(name);
+        AppManager::getInstance().getTimeLineManager().draw();
+    this->end(name);
+}
+
+
 
 void LayoutManager::createTextVisuals()
 {

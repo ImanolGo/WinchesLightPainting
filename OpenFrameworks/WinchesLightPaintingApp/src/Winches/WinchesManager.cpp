@@ -56,7 +56,7 @@ bool WinchesManager::readCsv()
         ofLogNotice() <<"WinchesManager::readPositions-> Successfully loaded: "<< POSITIONS_DATA_PATH ;
         ofLogNotice() <<"WinchesManager::readPositions -> csv rows: "<< m_csv.getNumRows() << ", csv cols: " << m_csv.getNumCols();
         m_numPositions = m_csv.getNumRows()/NUM_WINCHES;
-        ofLogNotice() <<"WinchesManager::readPositions -> Number of positions"<< m_numPositions;
+        ofLogNotice() <<"WinchesManager::readPositions -> Number of positions: "<< m_numPositions;
         return true;
     }
     else
