@@ -84,29 +84,10 @@ void LayoutManager::setupFbos()
 }
 
 
-void LayoutManager::resetWindowRects()
-{
-    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
-    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
-    float ratio = width/ height;
-    float frame_width = ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth() - 2*MARGIN;
-    float frame_height= ofGetHeight() - AppManager::getInstance().getGuiManager().getHeight() - 2*MARGIN;
-    
-    
-    int i = 0;
-    for (auto& rect : m_windowRects)
-    {
-        rect.second->height = frame_height/m_windowRects.size() - 4*MARGIN;
-        rect.second->width = rect.second->height * ratio;
-        
-        rect.second->x = AppManager::getInstance().getGuiManager().getWidth()  + 4*MARGIN;
-        rect.second->y = i*rect.second->height + 2*i*MARGIN;
-        i++;
-    }
-}
-
 void LayoutManager::setupWindowFrames()
 {
+    ofColor color = AppManager::getInstance().getSettingsManager().getColor("FrameRectangle");
+    
     for (auto& fbo : m_fbos)
     {
         ofPtr<ofRectangle>  rect = ofPtr<ofRectangle> (new ofRectangle());
@@ -114,11 +95,35 @@ void LayoutManager::setupWindowFrames()
         
         ofPtr<RectangleVisual>  rectVisual = ofPtr<RectangleVisual> (new RectangleVisual());
         m_windowFrames[fbo.first] = rectVisual;
+        m_windowFrames[fbo.first]->setColor(color);
     }
     
     this->resetWindowRects();
     this->resetWindowFrames();
 }
+
+
+void LayoutManager::resetWindowRects()
+{
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    float ratio = width/ height;
+    float frame_width = ofGetWindowWidth() - AppManager::getInstance().getGuiManager().getWidth() - 2*MARGIN;
+    float frame_height= ofGetWindowHeight() - 2*MARGIN;
+    
+    
+    int i = 0;
+    for (auto& rect : m_windowRects)
+    {
+        rect.second->height = frame_height/m_windowRects.size() - 2*MARGIN;
+        rect.second->width = rect.second->height * ratio;
+        
+        rect.second->x = AppManager::getInstance().getGuiManager().getWidth()  + 4*MARGIN;
+        rect.second->y = i*rect.second->height + 2*i*MARGIN  + 2*MARGIN;;
+        i++;
+    }
+}
+
 
 void LayoutManager::resetWindowFrames()
 {
@@ -135,18 +140,25 @@ void LayoutManager::update()
 {
     if(!m_initialized)
         return;
+//
+//    for (auto fbo : m_fbos)
+//    {
+//        fbo.second->begin();
+//        ofClear(255,0,0);
+//        fbo.second->end();
+//    }
 }
 
 void LayoutManager::createTextVisuals()
 {
-    float size = 20;
+    float size = 18;
     
     for (auto& rect : m_windowRects)
     {
         float w = rect.second->width;
         float h = size;
         float x =  rect.second->x + w*0.5;
-        float y =  rect.second->y - h - 2*MARGIN;
+        float y =  rect.second->y - h - MARGIN;
         ofPoint pos = ofPoint(x, y);
         string text = rect.first;
         string fontName = LAYOUT_FONT;
@@ -164,7 +176,7 @@ void LayoutManager::resetWindowTitles()
     for (auto& rect : m_windowRects)
     {
         float x =  rect.second->x + rect.second->width*0.5;
-        float y =  rect.second->y -  m_textVisuals[rect.first]->getHeight()*0.5 - MARGIN;
+        float y =  rect.second->y -  m_textVisuals[rect.first]->getHeight()*0.5 - MARGIN*0.5;
         ofPoint pos = ofPoint(x, y);
         m_textVisuals[rect.first]->setPosition(pos);
     }
@@ -225,6 +237,7 @@ void LayoutManager::draw()
     this->drawFbos();
     this->drawText();
     //this->drawRectangles();
+    //ofSetColor(255);
 }
 
 
@@ -238,11 +251,13 @@ void LayoutManager::drawText()
 
 void LayoutManager::drawFbos()
 {
-    ofEnableAlphaBlending();
-    for (auto& fbo : m_fbos)
+    //ofEnableAlphaBlending();
+    for (auto fbo : m_fbos)
     {
         m_windowFrames[fbo.first]->draw();
-        fbo.second->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
+        //fbo.second->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
+        //fbo.second->draw(0,0);
+        m_fbos[fbo.first]->draw(m_windowRects[fbo.first]->x, m_windowRects[fbo.first]->y, m_windowRects[fbo.first]->width, m_windowRects[fbo.first]->height);
     }
    
 }

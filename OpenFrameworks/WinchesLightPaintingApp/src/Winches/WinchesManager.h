@@ -38,10 +38,11 @@ public:
     void update();
 
     int getNumWinches() const {return NUM_WINCHES;}
-    
 
 
 private:
+    
+    void readPositions();
     
    
 private:

@@ -3,7 +3,7 @@
 
   <of_settings>
 
-      <window title="Winches Lighting App" x="0" y="0" width="1344" height="840" fullscreen="0" showCursor="1"/>
+      <window title="Winches Lighting App" x="0" y="0" width="1200" height="300" fullscreen="0" showCursor="1"/>
 
       <debug showCursor="1" setVerbose="1" logToFile = "1"/>
       <network ip="127.0.0.1" portOscSend="7890" portOscReceive="5678" portUdpSend="2390" portUdpReceive="2391" syphon="PrimaveraSoundSyphon" />

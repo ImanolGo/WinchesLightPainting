@@ -13,6 +13,8 @@
 		082F4D0A205A82A4002E7246 /* WinchesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082F4D09205A82A4002E7246 /* WinchesManager.cpp */; };
 		082F4D0F205AB2DA002E7246 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 082F4D0E205AB2DA002E7246 /* Syphon.framework */; };
 		082F4D11205AB2F8002E7246 /* Syphon.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 082F4D10205AB2F8002E7246 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		08787E17205AD53300AF53BE /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E13205AD53300AF53BE /* ofxCsv.cpp */; };
+		08787E18205AD53300AF53BE /* ofxCsvRow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08787E15205AD53300AF53BE /* ofxCsvRow.cpp */; };
 		0C8E6109528865C738BFD818 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A78388489306C3277E37BA4F /* SyphonNameboundClient.m */; };
 		12451834526FB5CD4EA0D0DF /* ofxSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B778D8F951EC700B066390 /* ofxSceneManager.cpp */; };
 		15FA0788DED9B05645862A3D /* ofxEasingCubic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2647D2EA00878BEB0023C444 /* ofxEasingCubic.cpp */; };
@@ -138,6 +140,10 @@
 		082F4D09205A82A4002E7246 /* WinchesManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WinchesManager.cpp; path = Winches/WinchesManager.cpp; sourceTree = "<group>"; };
 		082F4D0E205AB2DA002E7246 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		082F4D10205AB2F8002E7246 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
+		08787E13205AD53300AF53BE /* ofxCsv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCsv.cpp; path = Addons/ofxCsv/src/ofxCsv.cpp; sourceTree = "<group>"; };
+		08787E14205AD53300AF53BE /* ofxCsv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCsv.h; path = Addons/ofxCsv/src/ofxCsv.h; sourceTree = "<group>"; };
+		08787E15205AD53300AF53BE /* ofxCsvRow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxCsvRow.cpp; path = Addons/ofxCsv/src/ofxCsvRow.cpp; sourceTree = "<group>"; };
+		08787E16205AD53300AF53BE /* ofxCsvRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxCsvRow.h; path = Addons/ofxCsv/src/ofxCsvRow.h; sourceTree = "<group>"; };
 		08C5194B0C92DDA2A7539395 /* core.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = core.h; path = src/Addons/ofxUnicode/libs/utf8cpp/src/utf8_v2_3_1/source/utf8/core.h; sourceTree = SOURCE_ROOT; };
 		09BB1D7613A1F9D8E8B11D7A /* KeyboardManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = KeyboardManager.h; path = src/I0/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
@@ -347,6 +353,17 @@
 				082F4D0E205AB2DA002E7246 /* Syphon.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08787E12205AD52300AF53BE /* ofxCsv */ = {
+			isa = PBXGroup;
+			children = (
+				08787E13205AD53300AF53BE /* ofxCsv.cpp */,
+				08787E14205AD53300AF53BE /* ofxCsv.h */,
+				08787E15205AD53300AF53BE /* ofxCsvRow.cpp */,
+				08787E16205AD53300AF53BE /* ofxCsvRow.h */,
+			);
+			name = ofxCsv;
 			sourceTree = "<group>";
 		};
 		0D2C0FD94F0CF315745D1C66 /* Syphon */ = {
@@ -702,6 +719,7 @@
 		AD642137CCDF61FB3E6CCEA2 /* Addons */ = {
 			isa = PBXGroup;
 			children = (
+				08787E12205AD52300AF53BE /* ofxCsv */,
 				74A312B2568D421CAAEF740A /* ofxDatGui */,
 				1B41ADB372A759D872E1D939 /* ofxDmx */,
 				AC33CC5B16A8E50E394E37B4 /* ofxDmx4All */,
@@ -1123,8 +1141,10 @@
 				5152A5DBF51A461014A1F631 /* KeyboardManager.cpp in Sources */,
 				B55845AEA0868B24D708FABF /* UdpManager.cpp in Sources */,
 				5D33A9513B2A4C6DBD3188C7 /* GuiManager.cpp in Sources */,
+				08787E18205AD53300AF53BE /* ofxCsvRow.cpp in Sources */,
 				93510377552D47B6620A7586 /* LayoutManager.cpp in Sources */,
 				1AF15FCF93D2DDD6D4285C8E /* AppManager.cpp in Sources */,
+				08787E17205AD53300AF53BE /* ofxCsv.cpp in Sources */,
 				DA22DA3A4F2E611DF50078F2 /* main.cpp in Sources */,
 				58BCEB4034B30CB4A3456FC7 /* SettingsManager.cpp in Sources */,
 				F46D282F6FD6634956E06C86 /* WinchesLightPaintingApp.cpp in Sources */,

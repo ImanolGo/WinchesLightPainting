@@ -110,7 +110,7 @@ private:
     FboRectangles       m_windowRects;
     FboFrames           m_windowFrames;
     FboMap              m_fbos;
-
+    
 };
 
 //==========================================================================
