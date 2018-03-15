@@ -86,12 +86,7 @@ void SettingsManager::setDebugProperties()
         else{
             ofSetLogLevel(OF_LOG_NOTICE);
         }
-        
-        bool logToFile = ofToBool(attributes["logToFile"]);
-        if(logToFile){
-            ofLogToFile("logs/consoleLog.txt", false);
-        }
-       
+            
         
         ofLogNotice() <<"SettingsManager::setDebugProperties->  successfully loaded the OF general settings" ;
         return;

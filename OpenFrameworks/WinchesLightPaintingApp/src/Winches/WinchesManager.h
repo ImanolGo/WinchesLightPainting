@@ -11,6 +11,8 @@
 
 #include "ofMain.h"
 #include "Manager.h"
+#include "ofxCsv.h"
+
 
 //========================== class WinchesManager =======================================
 //==============================================================================
@@ -24,6 +26,7 @@
 class WinchesManager: public Manager
 {
     static const int NUM_WINCHES;
+    static const string POSITIONS_DATA_PATH;
 
 public:
     //! Constructor
@@ -38,16 +41,27 @@ public:
     void update();
 
     int getNumWinches() const {return NUM_WINCHES;}
+    
+    int getNumPositions() const {return m_numPositions;}
 
 
 private:
     
-    void readPositions();
+    bool readCsv();
+    
+    void initializePositions();
+    
+    void loadPositions();
     
    
 private:
     
-	
+    typedef  vector<float> PositionsVector;                ///< defines a vecotor of winch positions
+    typedef  map<int, PositionsVector  >    PositionsMap;     ///< defines a map of PositionsVector attached to an ID
+    
+    PositionsMap     m_positions;
+    ofxCsv           m_csv;
+    int              m_numPositions;
 
 };
 
