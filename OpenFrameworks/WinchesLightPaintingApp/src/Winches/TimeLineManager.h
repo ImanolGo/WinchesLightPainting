@@ -28,7 +28,7 @@
 
 class TimeLineManager: public Manager
 {
-    enum PlaybackMode { Stop, PlayForward, PlayBackwards};
+    enum PlaybackMode { Stop, PlayForward, PlayBackwards, Panic};
 
 public:
     //! Constructor
@@ -53,11 +53,13 @@ public:
     
     void playNext();
     
-    void playForward(){m_playMode = PlayForward;}
+    void playForward();
     
-    void playBackwards(){m_playMode = PlayBackwards;}
+    void playBackwards();
     
-    void stop(){m_playMode = Stop;}
+    void stop();
+    
+    void setPanic(bool value);
     
     void playPrevious();
     

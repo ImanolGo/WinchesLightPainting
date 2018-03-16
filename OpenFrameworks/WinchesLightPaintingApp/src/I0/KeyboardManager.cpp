@@ -77,6 +77,11 @@ void KeyboardManager::keyPressed(ofKeyEventArgs &e)
         AppManager::getInstance().getTimeLineManager().stop();
     }
     
+    else if(key == 'p' || key == 'P')
+    {
+        AppManager::getInstance().getGuiManager().onPanicToggleChange(true);
+    }
+    
 }
 
 void KeyboardManager::keyReleased(ofKeyEventArgs &e)

@@ -78,6 +78,7 @@ void VisualEffectsManager::removeAllVisualEffects(ofPtr<BasicVisual> visual)
 {
 	for(VisualEffectVector::iterator it = m_visualEffects.begin(); it != m_visualEffects.end();) {
 		if((*it)->getVisual() == visual) {
+            (*it)->finish();
 			it = m_visualEffects.erase(it);
 		}
 		else {

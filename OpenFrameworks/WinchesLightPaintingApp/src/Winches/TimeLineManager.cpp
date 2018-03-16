@@ -120,7 +120,9 @@ void TimeLineManager::update()
 
 void TimeLineManager::updateTime()
 {
-    m_time = ofMap(m_timeRect->getPosition().x, m_margin, m_margin + m_timeWidth, 0.0, 1.0, true);
+    auto& startPos = m_images.front().getPosition().x;
+    auto& endPos = m_images.back().getPosition().x;
+    m_time = ofMap(m_timeRect->getPosition().x, startPos, endPos, 0.0, 1.0, true);
     string name = "Time";
     string text = name + ": " + ofToString(m_time);
     m_text[name]->setText(text);
@@ -129,7 +131,7 @@ void TimeLineManager::updateTime()
 
 void TimeLineManager::checkPlayback()
 {
-    if(m_playMode == Stop){
+    if(m_playMode == Stop || m_playMode == Panic){
         return;
     }
     
@@ -222,6 +224,10 @@ void TimeLineManager::onSegmentDurationChange(float& value)
 
 void TimeLineManager::playNext()
 {
+    if(m_playMode == Panic){
+        return;
+    }
+    
     auto numFrames = AppManager::getInstance().getWinchesManager().getNumPositions();
     
     if(m_currentFrame>= numFrames-1){
@@ -242,6 +248,10 @@ void TimeLineManager::playNext()
 
 void TimeLineManager::playPrevious()
 {
+    if(m_playMode == Panic){
+        return;
+    }
+    
     auto numFrames = AppManager::getInstance().getWinchesManager().getNumPositions();
     
     if(m_currentFrame<= 0){
@@ -264,6 +274,10 @@ void TimeLineManager::playPrevious()
 
 void TimeLineManager::moveToFrame(int frame, float duration)
 {
+    if(m_playMode == Panic){
+        return;
+    }
+    
     if(frame<0 || frame>=m_images.size()){
         return;
     }
@@ -286,8 +300,61 @@ void TimeLineManager::moveToFrame(int frame, float duration)
 
 void TimeLineManager::reset()
 {
+    if(m_playMode == Panic){
+        return;
+    }
+    
     m_playMode = Stop;
     this->moveToFrame(0,m_resetTime);
+}
+
+void TimeLineManager::setPanic(bool value)
+{
+    if(value){
+         m_playMode = Panic;
+         AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_timeRect);
+         m_currentFrame = 0;
+        
+        string name = "Frame";
+        string text = name + ": " + ofToString(m_currentFrame+1);
+        m_text[name]->setText(text);
+        m_time = 0.0;
+        m_timeRect->setPosition(m_images.front().getPosition());
+        
+    }
+    else{
+        m_playMode = Stop;
+    }
+}
+
+
+void TimeLineManager::playForward()
+{
+    if(m_playMode == Panic){
+        return;
+    }
+    
+    m_playMode = PlayForward;
+    
+}
+
+void TimeLineManager::playBackwards()
+{
+    if(m_playMode == Panic){
+        return;
+    }
+    
+    m_playMode = PlayBackwards;
+}
+
+void TimeLineManager::stop()
+{
+    if(m_playMode == Panic){
+        return;
+    }
+    
+    m_playMode = Stop;
+    
 }
 
 

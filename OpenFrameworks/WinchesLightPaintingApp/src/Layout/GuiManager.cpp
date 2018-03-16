@@ -250,6 +250,18 @@ void GuiManager::onToggleEvent(ofxDatGuiToggleEvent e)
     }
 }
 
+
+void  GuiManager::onPanicToggleChange(bool value)
+{
+    ofxDatGuiToggle* toggle = m_gui.getToggle("Toggle Panic");
+    if(toggle->getChecked()!=value){
+        toggle->setChecked(value);
+    }
+    
+    AppManager::getInstance().getTimeLineManager().setPanic(value);
+    AppManager::getInstance().getDmxManager().onPanicChange(value);
+}
+
 void GuiManager::onMatrixEvent(ofxDatGuiMatrixEvent e)
 {
     cout << "onMatrixEvent " << e.child << " : " << e.enabled << endl;

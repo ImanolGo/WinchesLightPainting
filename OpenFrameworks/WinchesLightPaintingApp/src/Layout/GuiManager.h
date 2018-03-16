@@ -66,7 +66,7 @@ public:
     
     void onMatrixEvent(ofxDatGuiMatrixEvent e);
     
-    void onPanicToggleChange(bool value) {m_panicToggle;}
+    void onPanicToggleChange(bool value);
     
     void onDurationChange(float& value);
     
