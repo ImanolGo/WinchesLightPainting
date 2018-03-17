@@ -38,6 +38,7 @@ void WinchesManager::setup()
     
     ofLogNotice() <<"WinchesManager::initialized" ;
     
+    this->setupWinches();
     this->initializePositions();
     
     if(this->readCsv())
@@ -46,6 +47,19 @@ void WinchesManager::setup()
     }
 }
 
+void WinchesManager::setupWinches()
+{
+    float w = AppManager::getInstance().getSettingsManager().getAppWidth()/NUM_WINCHES;
+    float h = AppManager::getInstance().getSettingsManager().getAppHeight();
+    
+    for (int i=0; i<NUM_WINCHES; i++)
+    {
+        float x = i*w;
+        float y = 0;
+        ofPtr<Winch> winch = ofPtr<Winch>(new Winch(ofPoint(x,y), w, h, i));
+        m_winches[i] = winch;
+    }
+}
 
 
 bool WinchesManager::readCsv()
@@ -97,8 +111,36 @@ void WinchesManager::loadPositions()
 
 void WinchesManager::update()
 {
-
+    this->updateWinches();
 }
 
+
+void WinchesManager::updateWinches()
+{
+    for(auto winch: m_winches)
+    {
+        winch.second->update();
+    }
+}
+
+
+
+void WinchesManager::draw()
+{
+    this->drawWinches();
+}
+
+void WinchesManager::drawWinches()
+{
+    for(auto winch: m_winches)
+    {
+        winch.second->draw();
+    }
+}
+
+void WinchesManager::setFrame(int index, float time)
+{
+    
+}
 
 

@@ -99,6 +99,8 @@ private:
     void updateTimeLineFbo();
     
     void updateLedsFbo();
+    
+    void updateWinchesFbo();
 
 private:
 

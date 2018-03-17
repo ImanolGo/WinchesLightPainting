@@ -242,7 +242,7 @@ void GuiManager::onButtonEvent(ofxDatGuiButtonEvent e)
 
 void GuiManager::onToggleEvent(ofxDatGuiToggleEvent e)
 {
-    cout << "onToggleEvent: " << e.target->getName() << " Selected" << endl;
+    cout << "onToggleEvent: " << e.target->getName() << " selected" << endl;
     
     if(e.target->getName() == "Toggle Panic")
     {

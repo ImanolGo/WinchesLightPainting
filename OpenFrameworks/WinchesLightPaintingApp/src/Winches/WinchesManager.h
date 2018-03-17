@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "Manager.h"
 #include "ofxCsv.h"
+#include "Winch.h"
 
 
 //========================== class WinchesManager =======================================
@@ -39,11 +40,14 @@ public:
     void setup();
 
     void update();
+    
+    void draw();
 
     int getNumWinches() const {return NUM_WINCHES;}
     
     int getNumPositions() const {return m_numPositions;}
-
+    
+    void setFrame(int index, float time);
 
 private:
     
@@ -53,15 +57,22 @@ private:
     
     void loadPositions();
     
-   
+    void setupWinches();
+    
+    void updateWinches();
+    
+    void drawWinches();
+    
 private:
     
     typedef  vector<float> PositionsVector;                ///< defines a vecotor of winch positions
     typedef  map<int, PositionsVector  >    PositionsMap;     ///< defines a map of PositionsVector attached to an ID
+    typedef  map<int, ofPtr<Winch>  >       WinchMap;     ///< defines a map of Winch Smart Pointers
     
     PositionsMap     m_positions;
     ofxCsv           m_csv;
     int              m_numPositions;
+    WinchMap         m_winches;
 
 };
 

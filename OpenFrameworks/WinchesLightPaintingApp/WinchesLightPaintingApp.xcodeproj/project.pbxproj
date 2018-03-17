@@ -10,6 +10,7 @@
 		0466B9E6A55078A9F39B1B4B /* svgtiny_gradient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD4F639B12AA5C1013177E49 /* svgtiny_gradient.cpp */; };
 		0490421322E35728363ECB8D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 1CF5CB791D00F2A2D10BC4FF /* README.md */; };
 		059F15A57C00F89CF43FDDD6 /* ofxSmartFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE9EA26E2A646CE843DEEB1E /* ofxSmartFont.cpp */; };
+		082A7343205C71D600857293 /* Winch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082A7341205C71D600857293 /* Winch.cpp */; };
 		082F4D0A205A82A4002E7246 /* WinchesManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082F4D09205A82A4002E7246 /* WinchesManager.cpp */; };
 		082F4D0F205AB2DA002E7246 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 082F4D0E205AB2DA002E7246 /* Syphon.framework */; };
 		082F4D11205AB2F8002E7246 /* Syphon.framework in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = 082F4D10205AB2F8002E7246 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -137,6 +138,8 @@
 		0731597061D6181DB86681B1 /* ofxDatGuiSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiSlider.h; path = src/Addons/ofxDatGui/src/components/ofxDatGuiSlider.h; sourceTree = SOURCE_ROOT; };
 		074978820820325AB8737225 /* README.md */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = README.md; path = src/Addons/ofxUnicode/README.md; sourceTree = SOURCE_ROOT; };
 		07D56619587D6E772911A5B4 /* DmxManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DmxManager.h; path = src/I0/DmxManager.h; sourceTree = SOURCE_ROOT; };
+		082A7341205C71D600857293 /* Winch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Winch.cpp; path = Winches/Winch.cpp; sourceTree = "<group>"; };
+		082A7342205C71D600857293 /* Winch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Winch.h; path = Winches/Winch.h; sourceTree = "<group>"; };
 		082F4D08205A82A4002E7246 /* WinchesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinchesManager.h; path = Winches/WinchesManager.h; sourceTree = "<group>"; };
 		082F4D09205A82A4002E7246 /* WinchesManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WinchesManager.cpp; path = Winches/WinchesManager.cpp; sourceTree = "<group>"; };
 		082F4D0E205AB2DA002E7246 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
@@ -346,6 +349,8 @@
 			children = (
 				082F4D09205A82A4002E7246 /* WinchesManager.cpp */,
 				082F4D08205A82A4002E7246 /* WinchesManager.h */,
+				082A7341205C71D600857293 /* Winch.cpp */,
+				082A7342205C71D600857293 /* Winch.h */,
 				08787E1E205AE66400AF53BE /* TimeLineManager.cpp */,
 				08787E1D205AE66300AF53BE /* TimeLineManager.h */,
 			);
@@ -1156,6 +1161,7 @@
 				58BCEB4034B30CB4A3456FC7 /* SettingsManager.cpp in Sources */,
 				F46D282F6FD6634956E06C86 /* WinchesLightPaintingApp.cpp in Sources */,
 				2E365EF9FF7B8963483CF162 /* Led.cpp in Sources */,
+				082A7343205C71D600857293 /* Winch.cpp in Sources */,
 				3377D2E177219519D8992BFC /* LedsManager.cpp in Sources */,
 				082F4D0A205A82A4002E7246 /* WinchesManager.cpp in Sources */,
 				44954A08B2522C6FE16E629B /* ofxTCPClient.cpp in Sources */,
