@@ -79,13 +79,17 @@ void GuiManager::setupTimeLineParameters()
 {
     auto timeLineManager = &AppManager::getInstance().getTimeLineManager();
     
-    m_timeLineDuration.set("Duration", 30, 30, 360);
+    m_timeLineDuration.set("Duration", 10, 10, 120);
     m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onDurationChange);
     m_parameters.add(m_timeLineDuration);
     
-    m_timeLineSegmentDuration.set("Segment Duration", 2, 0, 30);
+    m_timeLineSegmentDuration.set("Segment Duration", 2, 0, 5);
     m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onSegmentDurationChange);
     m_parameters.add(m_timeLineDuration);
+    
+    m_timeLineResetDuration.set("Reset Duration", 2, 10, 30);
+    m_timeLineResetDuration.addListener(timeLineManager, &TimeLineManager::onSegmentDurationChange);
+    m_parameters.add(m_timeLineResetDuration);
     
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("TIMELINE", ofColor::greenYellow);

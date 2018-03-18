@@ -48,12 +48,16 @@ public:
     int getNumPositions() const {return m_numPositions;}
     
     void setFrame(int index, float time);
+    
+    void stop();
 
 private:
     
     bool readCsv();
     
     void initializePositions();
+    
+    void initializeRanges();
     
     void loadPositions();
     
@@ -62,6 +66,12 @@ private:
     void updateWinches();
     
     void drawWinches();
+    
+    float getSpeed(float currentPos, float prevPos, float time);
+    
+    void setWinch(int _id, float currentPos, float prevPos, float time);
+    
+    void sendDmx(int _id, float currentPos, float prevPos, float time);
     
 private:
     
@@ -73,6 +83,10 @@ private:
     ofxCsv           m_csv;
     int              m_numPositions;
     WinchMap         m_winches;
+    int              m_previousFrame;
+    ofVec2f          m_speedRange;
+    ofVec2f          m_distanceRange;
+
 
 };
 

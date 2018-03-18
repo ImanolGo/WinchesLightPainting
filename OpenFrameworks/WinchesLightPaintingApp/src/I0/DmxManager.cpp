@@ -70,12 +70,16 @@ void DmxManager::onSetPosition(int _id, float percentage)
         return;
     }
     
-    unsigned short int positionDmx = (int) ofMap(percentage, 0.0, 100.0, 0.0, sizeof(unsigned short int), true);
+    
+    ofLogNotice() <<"DmxManager::onSetPosition << id: " << _id << ", percentage: " << percentage;
+    
+    
+    unsigned short int positionDmx = (int) ofMap(percentage, 0.0, 100.0, 0.0, 255*255, true);
     
     ofLogNotice() <<"DmxManager::onSetPosition << unsigned short int  level: " << positionDmx;;
     
-    unsigned char positionHiLevel = positionDmx / sizeof(unsigned char) ;
-    unsigned char positionLoLevel = positionDmx % sizeof(unsigned char) ;
+    unsigned char positionHiLevel = positionDmx / 255 ;
+    unsigned char positionLoLevel = positionDmx % 255 ;
     
     auto numWinches = AppManager::getInstance().getWinchesManager().getNumWinches();
     int positionHiChannel = DmxChannels::PositionHi + _id*numWinches;
@@ -83,8 +87,8 @@ void DmxManager::onSetPosition(int _id, float percentage)
     
     m_dmx.setLevel(positionHiChannel, positionHiLevel);
     m_dmx.setLevel(positionLowChannel, positionLoLevel);
-    ofLogNotice() <<"DmxManager::onSetPosition << Set channel Hi: " << positionHiChannel << ", level " << positionHiLevel;
-    ofLogNotice() <<"DmxManager::onSetPosition << Set channel Hi: " << positionLowChannel << ", level " << positionLoLevel;
+    ofLogNotice() <<"DmxManager::onSetPosition << Set channel Hi: " << positionHiChannel << ", level " <<  (int)positionHiLevel;
+    ofLogNotice() <<"DmxManager::onSetPosition << Set channel Lo: " << positionLowChannel << ", level " << (int) positionLoLevel;
 }
 
 void DmxManager::onSetSpeed(int _id, float percentage)
@@ -93,11 +97,13 @@ void DmxManager::onSetSpeed(int _id, float percentage)
         return;
     }
     
-    unsigned char speedLevel = (int) ofMap(percentage, 0.0, 100.0, 0.0, sizeof(unsigned char), true);
+    ofLogNotice() <<"DmxManager::onSetSpeed << id: " << _id << ", percentage: " << percentage;
+    
+    unsigned char speedLevel = (unsigned char) ofMap(percentage, 0.0, 100.0, 0.0, 255, true);
     auto numWinches = AppManager::getInstance().getWinchesManager().getNumWinches();
     int speedChannel = DmxChannels::Speed + _id*numWinches;
     m_dmx.setLevel(speedChannel, speedLevel);
-    ofLogNotice() <<"DmxManager::onSetSpeed << Set channel: " << speedChannel << ", level " << speedLevel;
+    ofLogNotice() <<"DmxManager::onSetSpeed << Set channel: " << speedChannel << ", level " << int(speedLevel);
 }
 
 void DmxManager::setPanic()

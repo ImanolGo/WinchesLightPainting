@@ -11,7 +11,7 @@
 #include "AppManager.h"
 
 
-Winch::Winch(const ofPoint& position, float width, float height, int _id): BasicVisual(position, width, height), m_id(_id)
+Winch::Winch(const ofPoint& position, float width, float height, int _id): BasicVisual(position, width, height), m_id(_id), m_distance(0.0), m_speed(0.0)
 {
     this->setup();
 }
@@ -23,8 +23,8 @@ Winch::~Winch()
 
 void Winch::setup()
 {
-    this->setupImages();
     this->setupRectangles();
+    this->setupImages();
     this->setupText();
 }
 
@@ -35,9 +35,18 @@ void Winch::setupImages()
     m_image.setResource("Circle");
     m_image.setCentred(true);
     m_image.setWidth(m_width*0.15, true);
+//    float x = m_width*0.5;
+//    float y = m_height*0.5;
+//    m_image.setPosition(ofPoint(x,y));
+    
     float x = m_width*0.5;
-    float y = m_height*0.5;
-    m_image.setPosition(ofPoint(x,y));
+    float y = m_rectangles["top"].getHeight() + m_image.getHeight()*0.5;
+    m_topPos =ofPoint(x,y);
+    m_bottomPos = m_topPos;
+    m_bottomPos.y = m_height - m_rectangles["bottom"].getHeight() - m_image.getHeight()*0.5;
+    
+    m_image.setPosition(m_topPos);
+    
 }
 
 void Winch::setupText()
@@ -56,15 +65,19 @@ void Winch::setupText()
     
     
     fontSize = m_rectangles["bottom"].getHeight()/4;
-    h = fontSize*2;
+    h = fontSize;
     w = m_width - 2*margin;
-    text = "Distance: 0.0m\nSpeed: 0.0m/s";
+    text = "Distance: 0.00";
     auto pos = m_rectangles["bottom"].getPosition();
     pos.x +=  m_rectangles["bottom"].getWidth()*0.5;
-    pos.y += m_rectangles["bottom"].getHeight()*0.5;
-    m_text["bottom"] = TextVisual(pos, w, h, true);
-    m_text["bottom"].setLineHeight(2.0);
-    m_text["bottom"].setText(text, fontName, fontSize, textColor);
+    pos.y += m_rectangles["bottom"].getHeight()*0.5 - h*0.5;
+    m_text["Distance"] = TextVisual(pos, w, h, true);
+    m_text["Distance"].setText(text, fontName, fontSize, textColor);
+    
+    text = "Speed: 0.0";
+    pos.y += 1.5*h;
+    m_text["Speed"] = TextVisual(pos, w, h, true);
+    m_text["Speed"].setText(text, fontName, fontSize, textColor);
 }
 
 void Winch::setupRectangles()
@@ -113,13 +126,14 @@ void Winch::draw()
 
 void Winch::update()
 {
+    this->updateDistance();
     this->updateText();
 }
 
 
 void Winch::setParameters(float distance, float speed)
 {
-    
+   ////
 }
 
 void Winch::drawRectangles()
@@ -144,9 +158,32 @@ void Winch::drawText()
 }
 
 
+void Winch::updateDistance()
+{
+    m_rectangles["string"] .setHeight(m_image.getPosition().y);
+}
+
 void Winch::updateText()
 {
+    m_text["id"].setPosition(m_image.getPosition());
+}
+
+void Winch::setSpeed(float value, float valueNorm)
+{
+    string text = "Speed: " + ofToString(value, 3) +  " m/s";
+    m_text["Speed"].setText(text);
+    m_speed = valueNorm;
+}
+
+void Winch::setDistance(float value, float valueNorm)
+{
+    string text = "Distance: " + ofToString(value, 3)+ " m";
+    m_text["Distance"].setText(text);
+    m_distance = ofMap(valueNorm, 0.0, 1.0, m_topPos.y, m_bottomPos.y);
     
+    auto pos = m_image.getPosition();
+    pos.y = m_distance;
+    m_image.setPosition(pos);
 }
 
 

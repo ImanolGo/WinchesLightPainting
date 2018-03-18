@@ -27,6 +27,10 @@ public:
     
     void draw();
     
+    void setSpeed(float value, float valueNorm);
+    
+    void setDistance(float value, float valueNorm); 
+    
 private:
     
     void setup();
@@ -41,6 +45,8 @@ private:
     
     void updateText();
     
+    void updateDistance();
+    
     void drawRectangles();
     
     void drawImages();
@@ -51,6 +57,7 @@ private:
     
     int getId() const {return m_id;}
     
+   
     
 private:
     
@@ -61,7 +68,8 @@ private:
     RectanglesMap       m_rectangles;
     TextsMap            m_text;
     ImageVisual         m_image;
-    
+    ofPoint             m_topPos;
+    ofPoint             m_bottomPos;
     float               m_distance;
     float               m_speed;
     int                 m_id;

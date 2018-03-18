@@ -16,7 +16,7 @@ const int WinchesManager::NUM_WINCHES = 6;
 const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data.csv";
 
 
-WinchesManager::WinchesManager(): Manager(), m_numPositions(0)
+WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(0)
 {
     //Intentionally left empty
 }
@@ -40,6 +40,7 @@ void WinchesManager::setup()
     
     this->setupWinches();
     this->initializePositions();
+    this->initializeRanges();
     
     if(this->readCsv())
     {
@@ -90,11 +91,17 @@ void WinchesManager::initializePositions()
     }
 }
 
+void WinchesManager::initializeRanges()
+{
+    m_distanceRange.x = 0; m_distanceRange.y = 9.8; //Winch 10 Lifting Range [0m - 9.8m]
+    m_speedRange.x = 0.05; m_speedRange.y = 0.3;    //Winch 10 Speed Range [5cm/s - 30cm/s]
+}
+
 void WinchesManager::loadPositions()
 {
     for(int i=0; i< m_csv.getNumRows(); i++){
         int index = i % NUM_WINCHES;
-        float pos = m_csv.getRow(i).getFloat(0);
+        float pos = m_csv.getRow(i).getFloat(0)/1000; // Turn positions from mm to m
         m_positions[index].push_back(pos);
     }
     
@@ -138,9 +145,61 @@ void WinchesManager::drawWinches()
     }
 }
 
+
+void WinchesManager::stop()
+{
+    this->setFrame(m_previousFrame, 1.0); // Set to current frame, that is stop
+}
+
 void WinchesManager::setFrame(int index, float time)
 {
+    if(index<0 || index >=m_numPositions){
+        return;
+    }
     
+    for (int i=0; i<NUM_WINCHES; i++)
+    {
+        auto& positions = m_positions[i];
+        this->setWinch(i, positions[index], positions[m_previousFrame], time);
+        this->sendDmx(i, positions[index], positions[m_previousFrame], time);
+    }
+    
+    m_previousFrame = index;
+    
+}
+
+float WinchesManager::getSpeed(float currentPos, float prevPos, float time)
+{
+    return 0.0;
+}
+
+void WinchesManager::setWinch(int _id, float currentPos, float prevPos, float time)
+{
+    float speed = (currentPos-prevPos)/time;
+    float speedNorm = ofMap(speed, m_speedRange.x, m_speedRange.y, 0.0, 1.0);
+    
+    float distanceNorm = ofMap(currentPos, m_distanceRange.x, m_distanceRange.y, 0.0, 1.0, true);
+    
+    if(m_winches.find(_id)!=m_winches.end()){
+        m_winches[_id]->setSpeed(speed, speedNorm);
+        m_winches[_id]->setDistance(currentPos, distanceNorm);
+    }
+   
+}
+
+void WinchesManager::sendDmx(int _id, float currentPos, float prevPos, float time)
+{
+    float distancePercentage = ofMap(currentPos, m_distanceRange.x, m_distanceRange.y, 100.0, 0.0, true);
+    AppManager::getInstance().getDmxManager().onSetPosition(_id, distancePercentage);
+    
+    float speed = abs(currentPos-prevPos)/time;
+    
+    float speedPercentage  = 0.0; //If stop zero value
+    if(speed>0){ //If not zero range = [0.05m/s - 30m/s]
+        speedPercentage = ofMap(speed, m_speedRange.x, m_speedRange.y, 100.0/255.0 , 100.0, true);
+    }
+    
+    AppManager::getInstance().getDmxManager().onSetSpeed(_id, speedPercentage);
 }
 
 

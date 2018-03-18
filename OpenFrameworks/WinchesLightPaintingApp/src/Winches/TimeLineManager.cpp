@@ -116,6 +116,15 @@ void TimeLineManager::update()
     this->updateTime();
     this->checkPlayback();
     this->updateFbo();
+    //this->stopIfNotMoving();
+}
+
+
+void TimeLineManager::stopIfNotMoving()
+{
+    if(!this->isMoving()){
+        AppManager::getInstance().getWinchesManager().stop();
+    }
 }
 
 void TimeLineManager::updateTime()
@@ -221,6 +230,10 @@ void TimeLineManager::onSegmentDurationChange(float& value)
 //    AppManager::getInstance().getGuiManager().onDurationChange(m_duration);
 }
 
+void TimeLineManager::onResetDurationChange(float& value)
+{
+    m_resetTime = ofClamp(value, 1, 120);
+}
 
 void TimeLineManager::playNext()
 {
@@ -295,6 +308,8 @@ void TimeLineManager::moveToFrame(int frame, float duration)
     m_moveEffect = AppManager::getInstance().getVisualEffectsManager().createMoveEffect(m_timeRect, pos, settings);
     
     m_currentFrame = frame;
+    
+    AppManager::getInstance().getWinchesManager().setFrame(m_currentFrame, duration);
     
 }
 

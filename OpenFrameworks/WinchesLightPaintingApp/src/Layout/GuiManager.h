@@ -96,6 +96,7 @@ private:
     
     ofParameter<float> m_timeLineDuration;
     ofParameter<float> m_timeLineSegmentDuration;
+    ofParameter<float> m_timeLineResetDuration;
     
     ofParameter<bool> m_panicToggle;
     ofParameter<int> m_dmxWinch;

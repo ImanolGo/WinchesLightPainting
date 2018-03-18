@@ -51,19 +51,21 @@ public:
     
     void onSegmentDurationChange(float& value);
     
+    void onResetDurationChange(float& value);
+    
     void playNext();
     
     void playForward();
     
     void playBackwards();
     
-    void stop();
-    
     void setPanic(bool value);
     
     void playPrevious();
     
     void reset();
+    
+    void stop();
     
 private:
     
@@ -90,6 +92,8 @@ private:
     void drawText();
     
     void moveToFrame(int frame, float duration);
+    
+    void stopIfNotMoving();
    
 private:
     
