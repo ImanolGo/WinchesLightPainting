@@ -89,6 +89,8 @@ void DmxManager::onSetPosition(int _id, float percentage)
     m_dmx.setLevel(positionLowChannel, positionLoLevel);
     ofLogNotice() <<"DmxManager::onSetPosition << Set channel Hi: " << positionHiChannel << ", level " <<  (int)positionHiLevel;
     ofLogNotice() <<"DmxManager::onSetPosition << Set channel Lo: " << positionLowChannel << ", level " << (int) positionLoLevel;
+    
+   // m_dmx.update();
 }
 
 void DmxManager::onSetSpeed(int _id, float percentage)
@@ -104,6 +106,8 @@ void DmxManager::onSetSpeed(int _id, float percentage)
     int speedChannel = DmxChannels::Speed + _id*numWinches;
     m_dmx.setLevel(speedChannel, speedLevel);
     ofLogNotice() <<"DmxManager::onSetSpeed << Set channel: " << speedChannel << ", level " << int(speedLevel);
+    
+    //m_dmx.update();
 }
 
 void DmxManager::setPanic()

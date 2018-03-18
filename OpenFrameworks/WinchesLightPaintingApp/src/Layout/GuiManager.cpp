@@ -88,7 +88,7 @@ void GuiManager::setupTimeLineParameters()
     m_parameters.add(m_timeLineDuration);
     
     m_timeLineResetDuration.set("Reset Duration", 2, 10, 30);
-    m_timeLineResetDuration.addListener(timeLineManager, &TimeLineManager::onSegmentDurationChange);
+    m_timeLineResetDuration.addListener(timeLineManager, &TimeLineManager::onResetDurationChange);
     m_parameters.add(m_timeLineResetDuration);
     
     // add a folder to group a few components together //
@@ -96,6 +96,7 @@ void GuiManager::setupTimeLineParameters()
     
     folder->addSlider(m_timeLineDuration);
     folder->addSlider(m_timeLineSegmentDuration);
+    folder->addSlider(m_timeLineResetDuration);
     folder->addButton("* PlayF");
     folder->addButton("* PlayB");
     folder->addButton("* Stop");

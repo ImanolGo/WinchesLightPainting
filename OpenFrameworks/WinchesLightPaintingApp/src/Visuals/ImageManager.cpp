@@ -108,7 +108,7 @@ void ImageManager::updateFbo()
 void ImageManager::updateColors()
 {
     float time = AppManager::getInstance().getTimeLineManager().getCurrentTime();
-    int x = floor(m_pixels.getWidth() * time);
+    int x = (m_pixels.getWidth()-1) * time;
     
     for(int y=0; y<m_pixels.getHeight(); y++)
     {

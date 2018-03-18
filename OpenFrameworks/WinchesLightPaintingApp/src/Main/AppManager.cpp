@@ -93,6 +93,7 @@ void AppManager::update()
     m_winchesManager.update();
     m_timeLineManager.update();
     m_layoutManager.update();
+    m_dmxManager.update();
     m_guiManager.update();
 }
 

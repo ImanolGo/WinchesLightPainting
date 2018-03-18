@@ -50,6 +50,8 @@ public:
     void setFrame(int index, float time);
     
     void stop();
+    
+    void reset();
 
 private:
     
