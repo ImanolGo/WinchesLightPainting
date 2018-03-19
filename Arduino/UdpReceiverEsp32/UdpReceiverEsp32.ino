@@ -64,8 +64,8 @@ unsigned long now = 0; //current time value
 //char ssid[] = "TP-LINK_54E4"; //  your network SSID (name)
 //char pass[] = "27155332";    // your network password (use for WPA, or use as key for WEP)
 
-const char ssid[]     = "Don't worry, be happy!";
-const char pass[] = "whyistheskysohigh?";
+char ssid[] = "TP-LINK_9528"; //  your network SSID (name)
+char pass[] = "15419699";    // your network password (use for WPA, or use as key for WEP)
 
 //
 //IPAddress ip(192, 168, 0, 21); //  Fixed IP

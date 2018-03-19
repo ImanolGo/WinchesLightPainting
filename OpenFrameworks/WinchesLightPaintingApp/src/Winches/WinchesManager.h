@@ -54,6 +54,8 @@ public:
     void reset();
     
     void onOffsetChange(float& value) {m_offset = value;}
+    
+    const ofVec2f& getDistanceRange() const {return m_distanceRange;}
 
 private:
     
@@ -76,6 +78,8 @@ private:
     void setWinch(int _id, float currentPos, float prevPos, float time);
     
     void sendDmx(int _id, float currentPos, float prevPos, float time);
+    
+    void startAnimation(int _id, float currentPos, float time );
     
 private:
     

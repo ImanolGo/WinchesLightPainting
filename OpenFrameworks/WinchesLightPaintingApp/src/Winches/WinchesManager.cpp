@@ -93,7 +93,7 @@ void WinchesManager::initializePositions()
 
 void WinchesManager::initializeRanges()
 {
-    m_distanceRange.x = 0; m_distanceRange.y = 9.8; //Winch 10 Lifting Range [0m - 9.8m]
+    m_distanceRange.x = 0; m_distanceRange.y = 10.0; //Winch 10 Lifting Range [0m - 10m]
     m_speedRange.x = 0.05; m_speedRange.y = 0.3;    //Winch 10 Speed Range [5cm/s - 30cm/s]
 }
 
@@ -127,7 +127,8 @@ void WinchesManager::updateWinches()
     for(auto winch: m_winches)
     {
         winch.second->update();
-        
+        float value = ofMap(winch.second->getValue(), 0.0, 1.0, 100.0, 0.0);
+        AppManager::getInstance().getDmxManager().onSetPosition(winch.first, value);
     }
 }
 
@@ -158,28 +159,12 @@ void WinchesManager::setFrame(int index, float time)
         return;
     }
     
-    if(m_previousFrame<0){
-        for (int i=0; i<NUM_WINCHES; i++)
-        {
-            auto& positions = m_positions[i];
-            float currentPos =  positions[index]-m_offset;
-            this->setWinch(i, currentPos, 0.0, time);
-            this->sendDmx(i, currentPos, 0.0, time);
-        }
-        
+    for (int i=0; i<NUM_WINCHES; i++)
+    {
+        auto& positions = m_positions[i];
+        this->startAnimation(i, positions[index], time);
+        AppManager::getInstance().getDmxManager().onSetSpeed(i, 100);
     }
-    else{
-        for (int i=0; i<NUM_WINCHES; i++)
-        {
-            auto& positions = m_positions[i];
-            float currentPos =  positions[index]-m_offset;
-            float prevPos =  positions[m_previousFrame]-m_offset;
-            this->setWinch(i, currentPos,prevPos, time);
-            this->sendDmx(i, currentPos, prevPos, time);
-        }
-        
-    }
-    
     
     m_previousFrame = index;
     
@@ -188,6 +173,22 @@ void WinchesManager::setFrame(int index, float time)
 float WinchesManager::getSpeed(float currentPos, float prevPos, float time)
 {
     return 0.0;
+}
+
+void WinchesManager::startAnimation(int _id, float currentPos, float time )
+{
+    float distanceNorm = ofMap(currentPos, m_distanceRange.x, m_distanceRange.y, 0.0, 1.0, true);
+    if(m_winches.find(_id)!=m_winches.end()){
+        
+        EffectSettings settings;
+        settings.function = LINEAR; settings.type = EASE_OUT;
+        settings.startAnimation = 0; settings.animationTime = time;
+        
+        AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_winches[_id]);
+        AppManager::getInstance().getVisualEffectsManager().createValueEffect(m_winches[_id], distanceNorm, settings);
+        
+        //m_winches[_id]->setDistance(currentPos, distanceNorm);
+    }
 }
 
 void WinchesManager::setWinch(int _id, float currentPos, float prevPos, float time)
@@ -201,7 +202,6 @@ void WinchesManager::setWinch(int _id, float currentPos, float prevPos, float ti
         m_winches[_id]->setSpeed(speed, speedNorm);
         m_winches[_id]->setDistance(currentPos, distanceNorm);
     }
-   
 }
 
 void WinchesManager::sendDmx(int _id, float currentPos, float prevPos, float time)

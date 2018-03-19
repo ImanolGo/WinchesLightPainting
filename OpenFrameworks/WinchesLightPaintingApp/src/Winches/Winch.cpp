@@ -26,7 +26,6 @@ void Winch::setup()
     this->setupRectangles();
     this->setupImages();
     this->setupText();
-    m_value = 100.0;
 }
 
 
@@ -161,17 +160,27 @@ void Winch::drawText()
 
 void Winch::updateDistance()
 {
-        
     m_rectangles["string"] .setHeight(m_image.getPosition().y);
+    m_distance = ofMap(m_value, 0.0, 1.0, m_topPos.y, m_bottomPos.y);
     
+    auto pos = m_image.getPosition();
+    pos.y = m_distance;
+    m_image.setPosition(pos);
 }
 
 void Winch::updateText()
 {
     m_text["id"].setPosition(m_image.getPosition());
     
-    string text = "Value: " + ofToString(m_value, 2) +  " %";
+    float value = ofMap(m_value, 0.0, 1.0, 100.0, 0.0);
+    string text = "Value: " + ofToString(value, 2) +  " %";
     m_text["Value"].setText(text);
+    
+    auto& distanceRange = AppManager::getInstance().getWinchesManager().getDistanceRange();
+    value = ofMap(m_value, 0.0, 1.0, distanceRange.x, distanceRange.y);
+    
+    text = "Distance: " + ofToString(value, 3)+ " m";
+    m_text["Distance"].setText(text);
 
 }
 
