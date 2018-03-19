@@ -130,3 +130,12 @@ void DmxManager::onPanicChange(bool& value)
         this->setPanic();
     }
 }
+
+
+void  DmxManager::onSendDmx(int channel, unsigned char level)
+{
+     ofLogNotice() <<"DmxManager::onSendDmx << Set channel: " << channel << ", level " << int(level);
+    
+     m_dmx.setLevel(channel, level);
+     m_dmx.update();
+}

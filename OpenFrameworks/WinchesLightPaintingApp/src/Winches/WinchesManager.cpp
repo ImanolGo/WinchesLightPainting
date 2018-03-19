@@ -13,7 +13,7 @@
 
 const int WinchesManager::NUM_WINCHES = 6;
 
-const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data.csv";
+const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data3.csv";
 
 
 WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(-1)
@@ -127,6 +127,7 @@ void WinchesManager::updateWinches()
     for(auto winch: m_winches)
     {
         winch.second->update();
+        
     }
 }
 

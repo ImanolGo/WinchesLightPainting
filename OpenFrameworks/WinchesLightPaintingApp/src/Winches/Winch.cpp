@@ -26,6 +26,7 @@ void Winch::setup()
     this->setupRectangles();
     this->setupImages();
     this->setupText();
+    m_value = 100.0;
 }
 
 
@@ -74,10 +75,10 @@ void Winch::setupText()
     m_text["Distance"] = TextVisual(pos, w, h, true);
     m_text["Distance"].setText(text, fontName, fontSize, textColor);
     
-    text = "Speed: 0.0";
+    text = "Percentage: 100.0";
     pos.y += 1.5*h;
-    m_text["Speed"] = TextVisual(pos, w, h, true);
-    m_text["Speed"].setText(text, fontName, fontSize, textColor);
+    m_text["Value"] = TextVisual(pos, w, h, true);
+    m_text["Value"].setText(text, fontName, fontSize, textColor);
 }
 
 void Winch::setupRectangles()
@@ -160,12 +161,18 @@ void Winch::drawText()
 
 void Winch::updateDistance()
 {
+        
     m_rectangles["string"] .setHeight(m_image.getPosition().y);
+    
 }
 
 void Winch::updateText()
 {
     m_text["id"].setPosition(m_image.getPosition());
+    
+    string text = "Value: " + ofToString(m_value, 2) +  " %";
+    m_text["Value"].setText(text);
+
 }
 
 void Winch::setSpeed(float value, float valueNorm)

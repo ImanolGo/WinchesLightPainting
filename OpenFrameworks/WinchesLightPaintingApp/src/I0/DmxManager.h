@@ -39,6 +39,8 @@ public:
     void setup();
 
     void update();
+    
+    void onSendDmx(int channel, unsigned char level);
 
     void onSetPosition(int _id, float percentage);
     
@@ -60,6 +62,6 @@ private:
     
 	ofxDmx   m_dmx;
     bool     m_panicState;
-    int      m_dmxStartingChannel;
+    
 };
 

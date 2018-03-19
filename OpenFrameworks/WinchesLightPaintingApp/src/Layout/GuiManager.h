@@ -72,6 +72,22 @@ public:
     
     void onSegmentDurationChange(float& value);
     
+    void onDmxWinchChange(int& value);
+    
+    void onDmxChannel1Change(int& value);
+    
+    void onDmxChannel2Change(int& value);
+    
+    void onDmxChannel3Change(int& value);
+    
+    void onDmxChannel4Change(int& value);
+    
+    void onDmxChannel5Change(int& value);
+    
+    void onDmxChannel6Change(int& value);
+    
+    void onDmxChannel7Change(int& value);
+
 private:
     
     void setupGuiParameters();
@@ -98,10 +114,17 @@ private:
     ofParameter<float> m_timeLineSegmentDuration;
     ofParameter<float> m_timeLineResetDuration;
     
-    ofParameter<bool> m_panicToggle;
-    ofParameter<int> m_dmxWinch;
-    ofParameter<int> m_dmxInitChannel;
-    vector<ofParameter<int>>    m_dmxChannels;
+    ofParameter<bool>   m_panicToggle;
+    ofParameter<int>    m_dmxWinch;
+    ofParameter<int>    m_dmxInitChannel;
+    ofParameter<int>    m_channel1;
+    ofParameter<int>    m_channel2;
+    ofParameter<int>    m_channel3;
+    ofParameter<int>    m_channel4;
+    ofParameter<int>    m_channel5;
+    ofParameter<int>    m_channel6;
+    ofParameter<int>    m_channel7;
+    //vector<ofParameter<int>>    m_dmxChannels;
     
     
     bool        m_showGui;  //It defines the whether the gui should be shown or not

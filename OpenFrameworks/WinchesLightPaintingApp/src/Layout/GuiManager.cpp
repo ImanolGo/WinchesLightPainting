@@ -54,6 +54,8 @@ void GuiManager::setup()
 
 void GuiManager::setupGuiParameters()
 {
+    ofxDatGuiLog::quiet();
+    
     m_gui.setPosition(ofxDatGuiAnchor::TOP_LEFT);
     m_gui.setTheme(new GuiTheme());
     
@@ -122,17 +124,40 @@ void GuiManager::setupDmxGui()
     folder->addToggle("Toggle Panic");
 
     m_dmxWinch.set("Winch", 0, 0, numWinches-1);
+    m_dmxWinch.addListener(this, &GuiManager::onDmxWinchChange);
     folder->addSlider(m_dmxWinch);
     
     m_dmxInitChannel.set("InitChannel", 1, 1, 64);
     folder->addSlider(m_dmxInitChannel);
     
-    for(int i=0; i<numChannelsPerWinch; i++){
-        ofParameter<int> parameter;
-        string name = "Channel " + ofToString(i+1);
-        parameter.set(name, 0, 0, 255);
-        folder->addSlider(parameter);
-    }
+    m_channel1.set("Channel1", 0, 0, 255);
+    m_channel1.addListener(this, &GuiManager::onDmxChannel1Change);
+    folder->addSlider(m_channel1);
+    
+    m_channel2.set("Channel2", 0, 0, 255);
+    m_channel2.addListener(this, &GuiManager::onDmxChannel2Change);
+    folder->addSlider(m_channel2);
+    
+    m_channel3.set("Channel3", 0, 0, 255);
+    m_channel3.addListener(this, &GuiManager::onDmxChannel3Change);
+    folder->addSlider(m_channel3);
+    
+    m_channel4.set("Channel4", 0, 0, 255);
+    m_channel4.addListener(this, &GuiManager::onDmxChannel4Change);
+    folder->addSlider(m_channel4);
+    
+    m_channel5.set("Channel5", 0, 0, 255);
+    m_channel5.addListener(this, &GuiManager::onDmxChannel5Change);
+    folder->addSlider(m_channel5);
+    
+    m_channel6.set("Channel6", 0, 0, 255);
+    m_channel6.addListener(this, &GuiManager::onDmxChannel6Change);
+    folder->addSlider(m_channel6);
+    
+    m_channel7.set("Channel7", 0, 0, 255);
+    m_channel7.addListener(this, &GuiManager::onDmxChannel7Change);
+    folder->addSlider(m_channel7);
+  
     
     folder->expand();
     m_gui.addBreak();
@@ -282,5 +307,49 @@ void GuiManager::onSegmentDurationChange(float& value)
 {
     m_timeLineSegmentDuration = ofClamp(value, m_timeLineSegmentDuration.getMin(),  m_timeLineSegmentDuration.getMax());
 }
+
+void GuiManager::onDmxWinchChange(int& value)
+{
+    auto num = AppManager::getInstance().getDmxManager().getNumChannelsPerWinch();
+    m_dmxInitChannel = 1 + value*num;
+}
+
+void GuiManager::onDmxChannel1Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel, value);
+}
+
+void GuiManager::onDmxChannel2Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel+1, value);
+}
+
+void GuiManager::onDmxChannel3Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel+2, value);
+}
+
+
+void GuiManager::onDmxChannel4Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel+3, value);
+}
+
+
+void GuiManager::onDmxChannel5Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel+4, value);
+}
+
+void GuiManager::onDmxChannel6Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel+5, value);
+}
+
+void GuiManager::onDmxChannel7Change(int& value)
+{
+    AppManager::getInstance().getDmxManager().onSendDmx(m_dmxInitChannel+6, value);
+}
+
 
 

@@ -34,7 +34,7 @@ void ofApp::setup() {
     panel.setName("GUI");
     panel.setup();
     panel.setDefaultHeight(30);
-    panel.setDefaultWidth(350);
+    //panel.setDefaultWidth(350);
     
     
     ofxButton * button = new ofxButton();
