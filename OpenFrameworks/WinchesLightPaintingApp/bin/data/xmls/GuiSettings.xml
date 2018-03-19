@@ -1,5 +1,6 @@
 <group>
 	<Brightness>255</Brightness>
+	<Offset__m_>0</Offset__m_>
 	<Duration>30</Duration>
 	<Reset_Duration>27.19</Reset_Duration>
 </group>

@@ -16,7 +16,7 @@ const int WinchesManager::NUM_WINCHES = 6;
 const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data3.csv";
 
 
-WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(-1)
+WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(-1), m_offset(0.0)
 {
     //Intentionally left empty
 }
@@ -162,8 +162,9 @@ void WinchesManager::setFrame(int index, float time)
         for (int i=0; i<NUM_WINCHES; i++)
         {
             auto& positions = m_positions[i];
-            this->setWinch(i, positions[index], 0.0, time);
-            this->sendDmx(i, positions[index], 0.0, time);
+            float currentPos =  positions[index]-m_offset;
+            this->setWinch(i, currentPos, 0.0, time);
+            this->sendDmx(i, currentPos, 0.0, time);
         }
         
     }
@@ -171,8 +172,10 @@ void WinchesManager::setFrame(int index, float time)
         for (int i=0; i<NUM_WINCHES; i++)
         {
             auto& positions = m_positions[i];
-            this->setWinch(i, positions[index], positions[m_previousFrame], time);
-            this->sendDmx(i, positions[index], positions[m_previousFrame], time);
+            float currentPos =  positions[index]-m_offset;
+            float prevPos =  positions[m_previousFrame]-m_offset;
+            this->setWinch(i, currentPos,prevPos, time);
+            this->sendDmx(i, currentPos, prevPos, time);
         }
         
     }

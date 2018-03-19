@@ -42,7 +42,8 @@ void GuiManager::setup()
     
     
     this->setupGuiParameters();
-    this->setupGeneralGui();
+    this->setupImageGui();
+    this->setupWinchesGui();
     this->setupTimeLineGui();
     this->setupDmxGui();
     this->setupGuiEvents();
@@ -78,7 +79,7 @@ void GuiManager::setupGuiParameters()
 }
 
 
-void GuiManager::setupGeneralGui()
+void GuiManager::setupImageGui()
 {
     auto imageManager = &AppManager::getInstance().getImageManager();
     m_brightness.set("Brightness", 255 , 0, 255);
@@ -86,12 +87,28 @@ void GuiManager::setupGeneralGui()
     m_parameters.add(m_brightness);
     
     // add a folder to group a few components together //
-    ofxDatGuiFolder* folder = m_gui.addFolder("GENERAL", ofColor::purple);
+    ofxDatGuiFolder* folder = m_gui.addFolder("IMAGE", ofColor::purple);
     folder->addSlider(m_brightness);
     folder->expand();
     
     m_gui.addBreak();
 }
+
+void GuiManager::setupWinchesGui()
+{
+    auto winchesManager = &AppManager::getInstance().getWinchesManager();
+    m_offset.set("Offset (m)", 0.0 , 0.0, 10.0);
+    m_offset.addListener(winchesManager, &WinchesManager::onOffsetChange);
+    m_parameters.add(m_offset);
+    
+    // add a folder to group a few components together //
+    ofxDatGuiFolder* folder = m_gui.addFolder("WINCHES", ofColor::green);
+    folder->addSlider(m_offset);
+    folder->expand();
+    
+    m_gui.addBreak();
+}
+
 
 void GuiManager::setupTimeLineGui()
 {

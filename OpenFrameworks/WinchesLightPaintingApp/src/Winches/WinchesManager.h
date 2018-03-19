@@ -52,6 +52,8 @@ public:
     void stop();
     
     void reset();
+    
+    void onOffsetChange(float& value) {m_offset = value;}
 
 private:
     
@@ -88,6 +90,7 @@ private:
     int              m_previousFrame;
     ofVec2f          m_speedRange;
     ofVec2f          m_distanceRange;
+    float            m_offset;
 
 
 };

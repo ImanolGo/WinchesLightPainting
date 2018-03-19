@@ -94,7 +94,9 @@ private:
     
     void setupGuiEvents();
     
-    void setupGeneralGui();
+    void setupImageGui();
+    
+    void setupWinchesGui();
     
     void setupTimeLineGui();
     
@@ -112,7 +114,9 @@ private:
     
     ofParameterGroup        m_parameters;
     
-    ofParameter<int>      m_brightness;
+    ofParameter<int>        m_brightness;
+    
+    ofParameter<float>      m_offset;
     
     ofParameter<float> m_timeLineDuration;
     ofParameter<float> m_timeLineSegmentDuration;
