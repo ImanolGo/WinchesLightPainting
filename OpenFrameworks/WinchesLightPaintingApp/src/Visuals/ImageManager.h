@@ -44,6 +44,8 @@ public:
     
     int getHeight() const {return m_image.getOriginalHeight();}
     
+    void onBrightnessChange(int& value);
+    
 private:
     
     void setupFbo();
@@ -66,6 +68,7 @@ private:
     ImageVisual     m_image;
     RectangleVisual m_cursor;
     ofPixels        m_pixels;
+    int             m_brightness;
     
 };
 

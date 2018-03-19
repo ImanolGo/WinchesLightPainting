@@ -42,7 +42,8 @@ void GuiManager::setup()
     
     
     this->setupGuiParameters();
-    this->setupTimeLineParameters();
+    this->setupGeneralGui();
+    this->setupTimeLineGui();
     this->setupDmxGui();
     this->setupGuiEvents();
     this->loadGuiValues();
@@ -77,7 +78,22 @@ void GuiManager::setupGuiParameters()
 }
 
 
-void GuiManager::setupTimeLineParameters()
+void GuiManager::setupGeneralGui()
+{
+    auto imageManager = &AppManager::getInstance().getImageManager();
+    m_brightness.set("Brightness", 255 , 0, 255);
+    m_brightness.addListener(imageManager, &ImageManager::onBrightnessChange);
+    m_parameters.add(m_brightness);
+    
+    // add a folder to group a few components together //
+    ofxDatGuiFolder* folder = m_gui.addFolder("GENERAL", ofColor::purple);
+    folder->addSlider(m_brightness);
+    folder->expand();
+    
+    m_gui.addBreak();
+}
+
+void GuiManager::setupTimeLineGui()
 {
     auto timeLineManager = &AppManager::getInstance().getTimeLineManager();
     
@@ -106,6 +122,8 @@ void GuiManager::setupTimeLineParameters()
     folder->addButton("* Previous");
     folder->addButton("* Reset");
     folder->expand();
+    
+    m_gui.addBreak();
 }
 
 void GuiManager::setupDmxGui()

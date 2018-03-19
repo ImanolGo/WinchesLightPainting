@@ -94,7 +94,9 @@ private:
     
     void setupGuiEvents();
     
-    void setupTimeLineParameters();
+    void setupGeneralGui();
+    
+    void setupTimeLineGui();
     
     void setupDmxGui();
     
@@ -109,6 +111,8 @@ private:
     
     
     ofParameterGroup        m_parameters;
+    
+    ofParameter<int>      m_brightness;
     
     ofParameter<float> m_timeLineDuration;
     ofParameter<float> m_timeLineSegmentDuration;
