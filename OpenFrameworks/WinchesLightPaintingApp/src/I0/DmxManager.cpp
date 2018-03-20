@@ -73,17 +73,19 @@ void DmxManager::onSetPosition(int _id, float percentage)
     
     //ofLogNotice() <<"DmxManager::onSetPosition << id: " << _id << ", percentage: " << percentage;
     
+     //auto numWinches = AppManager::getInstance().getWinchesManager().getNumWinches();
     
     unsigned short int positionDmx = (int) ofMap(percentage, 0.0, 100.0, 0.0, 255*255, true);
-    
-    //ofLogNotice() <<"DmxManager::onSetPosition << unsigned short int  level: " << positionDmx;;
+//
+//    ofLogNotice() <<"DmxManager::onSetPosition << unsigned short int  level: " << positionDmx;
+//    ofLogNotice() <<"DmxManager::onSetPosition << dmx num " << _id*NUM_CHANNELS_PER_WINCH;;
     
     unsigned char positionHiLevel = positionDmx / 255 ;
     unsigned char positionLoLevel = positionDmx % 255 ;
     
-    auto numWinches = AppManager::getInstance().getWinchesManager().getNumWinches();
-    int positionHiChannel = DmxChannels::PositionHi + _id*numWinches;
-    int positionLowChannel = DmxChannels::PositionLo + _id*numWinches;
+   
+    int positionHiChannel = DmxChannels::PositionHi + _id*NUM_CHANNELS_PER_WINCH;
+    int positionLowChannel = DmxChannels::PositionLo + _id*NUM_CHANNELS_PER_WINCH;
     
     m_dmx.setLevel(positionHiChannel, positionHiLevel);
     m_dmx.setLevel(positionLowChannel, positionLoLevel);
@@ -99,11 +101,11 @@ void DmxManager::onSetSpeed(int _id, float percentage)
         return;
     }
     
-    //ofLogNotice() <<"DmxManager::onSetSpeed << id: " << _id << ", percentage: " << percentage;
+    //ofLogNotice() <<"DmxManager::onSetSpeed << id: " << _id*NUM_CHANNELS_PER_WINCH << ", percentage: " << percentage;
     
     unsigned char speedLevel = (unsigned char) ofMap(percentage, 0.0, 100.0, 0.0, 255, true);
     auto numWinches = AppManager::getInstance().getWinchesManager().getNumWinches();
-    int speedChannel = DmxChannels::Speed + _id*numWinches;
+    int speedChannel = DmxChannels::Speed + _id*NUM_CHANNELS_PER_WINCH;
     m_dmx.setLevel(speedChannel, speedLevel);
    // ofLogNotice() <<"DmxManager::onSetSpeed << Set channel: " << speedChannel << ", level " << int(speedLevel);
     

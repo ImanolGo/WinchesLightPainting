@@ -78,6 +78,8 @@ void AppManager::setupManagers()
     m_ledsManager.setup();
     m_guiManager.setup();
     
+    m_timeLineManager.reset();
+    
 }
 
 void AppManager::update()

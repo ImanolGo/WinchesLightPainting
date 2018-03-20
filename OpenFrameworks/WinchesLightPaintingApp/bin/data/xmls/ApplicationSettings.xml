@@ -6,7 +6,7 @@
       <window title="Winches Lighting App" x="0" y="0" width="1200" height="300" fullscreen="0" showCursor="1"/>
 
       <debug showCursor="1" setVerbose="1" logToFile = "1"/>
-      <network ipAddress="127.0.0.1" portOscSend="7890" portOscReceive="5678" portUdpSend="2390" portUdpReceive="2391" syphon="PrimaveraSoundSyphon" />
+      <network ipAddress="192.168.0.21" portOscSend="7890" portOscReceive="5678" portUdpSend="2390" portUdpReceive="2391" syphon="PrimaveraSoundSyphon" />
       <serial auto="0"  dmxPort="-1" serialPort="2"/>
 
   </of_settings>
@@ -15,7 +15,7 @@
 
     <texture name="Equalizer" path="images/general/equalizer.png"/>
     <texture name="Brush" path="images/general/brush.png"/>
-    <texture name="SurfaceImage" path="images/leds/gradientRainbow.jpg"/>
+    <texture name="SurfaceImage" path="images/leds/abstract2.png"/>
     <texture name="Circle" path="images/general/circle.png"/>
     
 

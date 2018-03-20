@@ -12,7 +12,7 @@
 
 
 
-TimeLineManager::TimeLineManager(): Manager(), m_currentFrame(0),m_time(0), m_duration(60), m_segmentDuration(0.2), m_resetTime(10), m_timeWidth(100), m_margin(10), m_playMode(Stop)
+TimeLineManager::TimeLineManager(): Manager(), m_currentFrame(0),m_time(0), m_duration(10), m_segmentDuration(0.2), m_resetTime(10), m_timeWidth(100), m_margin(10), m_playMode(Stop)
 {
     //Intentionally left empty
 }
@@ -61,6 +61,8 @@ void TimeLineManager::setupImages()
         image.setPosition(ofPoint(x,y));
         m_images.push_back(image);
     }
+    
+    m_segmentDuration = m_duration/numFrames;
    
 }
 
@@ -213,7 +215,7 @@ void TimeLineManager::onDurationChange(float& value)
 {
     auto numFrames = AppManager::getInstance().getWinchesManager().getNumPositions();
     
-    m_duration = ofClamp(value, 10, 360);
+    m_duration = ofClamp(value, 0, 360);
     m_segmentDuration = m_duration/numFrames;
     
     AppManager::getInstance().getGuiManager().onSegmentDurationChange(m_segmentDuration);

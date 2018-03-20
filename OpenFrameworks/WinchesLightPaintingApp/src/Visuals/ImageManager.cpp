@@ -14,7 +14,7 @@
 #include "ofQTKitPlayer.h"
 
 
-ImageManager::ImageManager(): Manager(), m_brightness(255)
+ImageManager::ImageManager(): Manager(), m_brightness(1.0)
 {
     //Intentionally left empty
 }
@@ -113,6 +113,7 @@ void ImageManager::updateColors()
     for(int y=0; y<m_pixels.getHeight(); y++)
     {
         ofColor color = m_pixels.getColor(x,y);
+        color.setBrightness(color.getBrightness()*m_brightness);
         //ofColor color = ofColor::white;
         AppManager::getInstance().getLedsManager().setColor(y, color);
     }
@@ -132,9 +133,10 @@ void ImageManager::drawFbo()
     m_fbo.draw(0,0);
 }
 
-void ImageManager::onBrightnessChange(int& value)
+void ImageManager::onBrightnessChange(float& value)
 {
     ofColor color(value);
     m_image.setColor(color);
+    m_brightness = value;
 }
 

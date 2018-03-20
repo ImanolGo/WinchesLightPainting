@@ -82,7 +82,7 @@ void GuiManager::setupGuiParameters()
 void GuiManager::setupImageGui()
 {
     auto imageManager = &AppManager::getInstance().getImageManager();
-    m_brightness.set("Brightness", 255 , 0, 255);
+    m_brightness.set("Brightness", 1.0 , 0.0, 1.0);
     m_brightness.addListener(imageManager, &ImageManager::onBrightnessChange);
     m_parameters.add(m_brightness);
     
@@ -101,9 +101,16 @@ void GuiManager::setupWinchesGui()
     m_offset.addListener(winchesManager, &WinchesManager::onOffsetChange);
     m_parameters.add(m_offset);
     
+    m_speed.set("Speed (100%)", 100.0 , 0.0, 100.0);
+    m_speed.addListener(winchesManager, &WinchesManager::onSpeedChange);
+    m_parameters.add(m_speed);
+    
+    
+    
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("WINCHES", ofColor::green);
     folder->addSlider(m_offset);
+    folder->addSlider(m_speed);
     folder->expand();
     
     m_gui.addBreak();
@@ -114,7 +121,7 @@ void GuiManager::setupTimeLineGui()
 {
     auto timeLineManager = &AppManager::getInstance().getTimeLineManager();
     
-    m_timeLineDuration.set("Duration", 10, 10, 120);
+    m_timeLineDuration.set("Duration", 10, 0, 60);
     m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onDurationChange);
     m_parameters.add(m_timeLineDuration);
     

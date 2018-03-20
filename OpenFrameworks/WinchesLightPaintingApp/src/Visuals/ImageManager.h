@@ -44,7 +44,7 @@ public:
     
     int getHeight() const {return m_image.getOriginalHeight();}
     
-    void onBrightnessChange(int& value);
+    void onBrightnessChange(float& value);
     
 private:
     
@@ -68,7 +68,7 @@ private:
     ImageVisual     m_image;
     RectangleVisual m_cursor;
     ofPixels        m_pixels;
-    int             m_brightness;
+    float           m_brightness;
     
 };
 

@@ -55,6 +55,8 @@ public:
     
     void onOffsetChange(float& value) {m_offset = value;}
     
+    void onSpeedChange(float& value) {m_speed = value;}
+    
     const ofVec2f& getDistanceRange() const {return m_distanceRange;}
 
 private:
@@ -95,6 +97,7 @@ private:
     ofVec2f          m_speedRange;
     ofVec2f          m_distanceRange;
     float            m_offset;
+    float            m_speed;
 
 
 };

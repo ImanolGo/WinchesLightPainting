@@ -13,10 +13,10 @@
 
 const int WinchesManager::NUM_WINCHES = 6;
 
-const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data3.csv";
+const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data1.csv";
 
 
-WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(-1), m_offset(0.0)
+WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(-1), m_offset(0.0), m_speed(100)
 {
     //Intentionally left empty
 }
@@ -124,11 +124,14 @@ void WinchesManager::update()
 
 void WinchesManager::updateWinches()
 {
+    float offset = ofMap(m_offset, m_distanceRange.x,  m_distanceRange.y, 0.0, 1.0, true);
     for(auto winch: m_winches)
     {
         winch.second->update();
-        float value = ofMap(winch.second->getValue(), 0.0, 1.0, 100.0, 0.0);
+        float value = ofMap(winch.second->getValue() - offset, 0.0, 1.0, 100.0, 0.0);
         AppManager::getInstance().getDmxManager().onSetPosition(winch.first, value);
+        AppManager::getInstance().getDmxManager().onSetSpeed(winch.first, m_speed);
+        //ofLogNotice() <<"WinchesManager::updateWinches-> " <<value;
     }
 }
 
@@ -163,11 +166,23 @@ void WinchesManager::setFrame(int index, float time)
     {
         auto& positions = m_positions[i];
         this->startAnimation(i, positions[index], time);
-        AppManager::getInstance().getDmxManager().onSetSpeed(i, 100);
+        AppManager::getInstance().getDmxManager().onSetSpeed(i, m_speed);
     }
     
     m_previousFrame = index;
     
+}
+
+void WinchesManager::reset()
+{
+    for (int i=0; i<NUM_WINCHES; i++)
+    {
+        auto& positions = m_positions[i];
+        AppManager::getInstance().getDmxManager().onSetPosition(i, positions[0]);
+        AppManager::getInstance().getDmxManager().onSetSpeed(i, 30);
+    }
+    
+   
 }
 
 float WinchesManager::getSpeed(float currentPos, float prevPos, float time)

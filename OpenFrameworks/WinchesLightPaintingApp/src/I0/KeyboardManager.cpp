@@ -82,6 +82,11 @@ void KeyboardManager::keyPressed(ofKeyEventArgs &e)
         AppManager::getInstance().getGuiManager().onPanicToggleChange(true);
     }
     
+    else if(key == ' ')
+    {
+        AppManager::getInstance().getGuiManager().onPanicToggleChange(true);
+    }
+    
 }
 
 void KeyboardManager::keyReleased(ofKeyEventArgs &e)

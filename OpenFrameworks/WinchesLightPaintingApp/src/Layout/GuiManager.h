@@ -114,9 +114,10 @@ private:
     
     ofParameterGroup        m_parameters;
     
-    ofParameter<int>        m_brightness;
+    ofParameter<float>        m_brightness;
     
     ofParameter<float>      m_offset;
+    ofParameter<float>      m_speed;
     
     ofParameter<float> m_timeLineDuration;
     ofParameter<float> m_timeLineSegmentDuration;

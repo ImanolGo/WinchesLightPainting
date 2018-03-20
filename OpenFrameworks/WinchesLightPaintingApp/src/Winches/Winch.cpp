@@ -23,6 +23,7 @@ Winch::~Winch()
 
 void Winch::setup()
 {
+    m_value = 0.5;
     this->setupRectangles();
     this->setupImages();
     this->setupText();

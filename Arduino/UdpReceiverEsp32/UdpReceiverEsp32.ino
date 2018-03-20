@@ -46,6 +46,7 @@
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER GRB
 #define NUM_LEDS 432
+#define MAX_BRIGHTNESS 255
 CRGBArray<NUM_LEDS> leds;
 
 #define TEST_DELAY 600
@@ -64,13 +65,13 @@ unsigned long now = 0; //current time value
 //char ssid[] = "TP-LINK_54E4"; //  your network SSID (name)
 //char pass[] = "27155332";    // your network password (use for WPA, or use as key for WEP)
 
-char ssid[] = "TP-LINK_9528"; //  your network SSID (name)
+char ssid[] = "TP-Link_9528"; //  your network SSID (name)
 char pass[] = "15419699";    // your network password (use for WPA, or use as key for WEP)
 
-//
-//IPAddress ip(192, 168, 0, 21); //  Fixed IP
-//IPAddress gateway(192, 168, 0, 1); // set gateway to match your network
-//IPAddress subnet(255, 255, 255, 0); // set subnet mask to match your network
+
+IPAddress ip(192, 168, 0, 21); //  Fixed IP
+IPAddress gateway(192, 168, 0, 1); // set gateway to match your network
+IPAddress subnet(255, 255, 255, 0); // set subnet mask to match your network
 //
 //IPAddress ip(192, 168, 178, 21); //  Fixed IP
 //IPAddress gateway(192, 168, 0, 1); // set gateway to match your network
@@ -90,7 +91,7 @@ void setup()
   setupSerial();
   setupWifi();
   setupLeds();
-  initTest(); //test to make sure pixels are working
+  //initTest(); //test to make sure pixels are working
 }
 
 void setupSerial() {
@@ -119,8 +120,8 @@ void setupWifi() {
 void setupLeds() {
   FastLED.addLeds<LED_TYPE,DATA_PIN,COLOR_ORDER>(leds, NUM_LEDS).setCorrection(UncorrectedColor);;
   FastLED.setDither( 0 );
-  FastLED.setBrightness(80); 
-  //FastLED.setMaxPowerInVoltsAndMilliamps (5, 2100);
+  FastLED.setBrightness(255); 
+   //FastLED.setMaxPowerInVoltsAndMilliamps (5, 2100);
   FastLED.clear();
   FastLED.show();
   
@@ -150,7 +151,7 @@ void initializeWifi() {
    // udp.stop();
     //udp.flush();
     WiFi.disconnect(true);
-   // WiFi.config(ip, gateway, subnet);
+    WiFi.config(ip, gateway, subnet);
     WiFi.setAutoReconnect(true);
 }
 
@@ -255,7 +256,7 @@ void parseRGBReceived(unsigned char* pbuff, int count)
 
 void initTest() //runs at board boot to make sure pixels are working
 {
-  //FastLED.setBrightness(255);       // set to full power
+  FastLED.setBrightness(100);       // set to full power
   
   FastLED.clear(); // on power up, one or more leds can be in a funky state.
   
@@ -293,7 +294,7 @@ void initTest() //runs at board boot to make sure pixels are working
   Serial.println("Show Time...");
   FastLED.clear();
   FastLED.show();
-  //FastLED.setBrightness(MAX_BRIGHTNESS);
+  FastLED.setBrightness(MAX_BRIGHTNESS);
 }
 
 
