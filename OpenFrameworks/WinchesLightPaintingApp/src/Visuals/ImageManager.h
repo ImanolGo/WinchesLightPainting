@@ -25,6 +25,8 @@
 class ImageManager: public Manager
 {
 
+     typedef  map<string, ofPtr<ImageVisual> >      ImageMap;
+    
 public:
     
     //! Constructor
@@ -42,17 +44,33 @@ public:
     //! Draw the Video Manager
     void draw();
     
-    int getHeight() const {return m_image.getOriginalHeight();}
+    int getHeight() const {return m_currentImage->getOriginalHeight();}
     
     void onBrightnessChange(float& value);
+    
+    void onRateChange(float& value) {m_rate = value;}
+    
+    void startAnimation(float pos, float time);
+    
+    void stop();
+    
+    const ImageMap& getImages() const {return m_images;}
+    
+    void setImage(const string& name);
     
 private:
     
     void setupFbo();
     
-    void setupImage();
+    void setupImages();
     
     void setupRectangle();
+    
+    bool loadImages();
+    
+    void addImages(string& name);
+    
+    void setPixels();
     
     void updateFbo();
     
@@ -62,13 +80,18 @@ private:
     
     void drawFbo();
     
+    string getImageName(const string& path);
+    
 private:
     
-    ofFbo           m_fbo;
-    ImageVisual     m_image;
-    RectangleVisual m_cursor;
-    ofPixels        m_pixels;
-    float           m_brightness;
+    
+    ofFbo                       m_fbo;
+    ImageMap                    m_images;
+    ofPtr<ImageVisual>          m_currentImage;
+    ofPtr<RectangleVisual>      m_cursor;
+    ofPixels                    m_pixels;
+    float                       m_brightness;
+    float                       m_rate;
     
 };
 

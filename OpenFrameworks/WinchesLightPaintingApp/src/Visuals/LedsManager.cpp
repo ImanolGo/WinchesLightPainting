@@ -236,3 +236,5 @@ void  LedsManager::setColor(int index, const ofColor& color)
     m_leds[index]->setColor(color);
 }
 
+
+

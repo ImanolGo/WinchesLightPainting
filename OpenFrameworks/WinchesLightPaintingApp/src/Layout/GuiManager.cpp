@@ -42,6 +42,7 @@ void GuiManager::setup()
     
     
     this->setupGuiParameters();
+    this->setupImagesDropDown();
     this->setupImageGui();
     this->setupWinchesGui();
     this->setupTimeLineGui();
@@ -79,6 +80,24 @@ void GuiManager::setupGuiParameters()
 }
 
 
+void GuiManager::setupImagesDropDown()
+{
+    string label = "IMAGES:";
+    vector<string> opts;
+    auto images = AppManager::getInstance().getImageManager().getImages();
+    for(auto image: images){
+        opts.push_back(image.first);
+    }
+    
+    m_gui.addDropdown(label, opts);
+    auto menu = m_gui.getDropdown(label);
+    menu->expand(); //let's have it open by default
+    menu->setStripeColor(ofColor::orange);
+    for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::yellow);
+    m_gui.addBreak();
+  
+}
+
 void GuiManager::setupImageGui()
 {
     auto imageManager = &AppManager::getInstance().getImageManager();
@@ -86,9 +105,15 @@ void GuiManager::setupImageGui()
     m_brightness.addListener(imageManager, &ImageManager::onBrightnessChange);
     m_parameters.add(m_brightness);
     
+    m_imageRate.set("ScaleTime", 0.0 , 0.0, 1.0);
+    m_imageRate.addListener(imageManager, &ImageManager::onRateChange);
+    m_parameters.add(m_imageRate);
+    
+    
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("IMAGE", ofColor::purple);
     folder->addSlider(m_brightness);
+    folder->addSlider(m_imageRate);
     folder->expand();
     
     m_gui.addBreak();
@@ -268,7 +293,13 @@ void GuiManager::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
     cout << "onDropdownEvent: " << e.target->getName() << " Selected" << endl;
     
-}
+    if(e.target->getName() == "IMAGES:")
+    {
+        AppManager::getInstance().getImageManager().setImage(e.target->getLabel());
+        m_gui.getDropdown(e.target->getName())->setLabel("FONT: " + e.target->getLabel());
+    }
+    
+}   
 
 void GuiManager::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
 {
@@ -308,6 +339,11 @@ void GuiManager::onButtonEvent(ofxDatGuiButtonEvent e)
     else if(e.target->getName() == "* Stop")
     {
         AppManager::getInstance().getTimeLineManager().stop();
+    }
+    
+    else if(e.target->getName() == "* Save GUI")
+    {
+        this->saveGuiValues();
     }
 }
 

@@ -81,6 +81,25 @@ void ResourceManager::loadTexture(const string& name, const string& path)
     }
 }
 
+bool ResourceManager::addTexture(string name, string path)
+{
+    ofPtr<ofTexture> texture = ofPtr<ofTexture>(new ofTexture());
+    
+    if(ofLoadImage(*texture,path)){
+        m_textures[name] = texture;
+        ofLogNotice() <<"ResourceManager::loadTextures-> allocated texture " << name ;
+        return true;
+        
+    }
+    else{
+        ofLogNotice() <<"ResourceManager::loadTextures-> unable to load texture " << name
+        << " from path " << path ;
+        return false;
+    }
+}
+
+
+
 void ResourceManager::loadSVGs()
 {
     ResourcesPathMap svgPathMap = AppManager::getInstance().getSettingsManager().getSvgResourcesPath();

@@ -1,7 +1,8 @@
 <group>
 	<Brightness>1</Brightness>
-	<Offset__m_>0.5</Offset__m_>
+	<ScaleTime>0</ScaleTime>
+	<Offset__m_>1.35</Offset__m_>
 	<Speed__100%_>100</Speed__100%_>
-	<Duration>9.78</Duration>
+	<Duration>10.79</Duration>
 	<Reset_Duration>2</Reset_Duration>
 </group>

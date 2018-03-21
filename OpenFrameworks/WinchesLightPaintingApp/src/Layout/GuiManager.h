@@ -96,6 +96,8 @@ private:
     
     void setupImageGui();
     
+    void setupImagesDropDown();
+    
     void setupWinchesGui();
     
     void setupTimeLineGui();
@@ -115,6 +117,7 @@ private:
     ofParameterGroup        m_parameters;
     
     ofParameter<float>        m_brightness;
+    ofParameter<float>        m_imageRate;
     
     ofParameter<float>      m_offset;
     ofParameter<float>      m_speed;

@@ -42,6 +42,9 @@ class ResourceManager: public Manager
     
         //! Load a certain texture
         void loadTexture(const string& name, const string& path);
+    
+        //! Add new texture externally
+        bool addTexture(string name, string path);
 
 	private:
 

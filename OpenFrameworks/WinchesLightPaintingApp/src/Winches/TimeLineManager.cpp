@@ -353,6 +353,7 @@ void TimeLineManager::playForward()
     
     m_playMode = PlayForward;
     
+    AppManager::getInstance().getImageManager().startAnimation(1.0, m_duration);
 }
 
 void TimeLineManager::playBackwards()
@@ -362,6 +363,7 @@ void TimeLineManager::playBackwards()
     }
     
     m_playMode = PlayBackwards;
+    AppManager::getInstance().getImageManager().startAnimation(0.0, m_duration);
 }
 
 void TimeLineManager::stop()
@@ -371,6 +373,7 @@ void TimeLineManager::stop()
     }
     
     m_playMode = Stop;
+    AppManager::getInstance().getImageManager().stop();
     
 }
 

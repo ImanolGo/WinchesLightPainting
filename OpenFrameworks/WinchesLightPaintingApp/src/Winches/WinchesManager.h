@@ -85,7 +85,8 @@ private:
     
 private:
     
-    typedef  vector<float> PositionsVector;                ///< defines a vecotor of winch positions
+    typedef  vector<float>  PositionsVector;                ///< defines a vecotor of winch positions
+    typedef  vector<string> FileNames;                ///< defines a vecotor of winch positions
     typedef  map<int, PositionsVector  >    PositionsMap;     ///< defines a map of PositionsVector attached to an ID
     typedef  map<int, ofPtr<Winch>  >       WinchMap;     ///< defines a map of Winch Smart Pointers
     

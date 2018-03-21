@@ -14,7 +14,7 @@
 #include "ofQTKitPlayer.h"
 
 
-ImageManager::ImageManager(): Manager(), m_brightness(1.0)
+ImageManager::ImageManager(): Manager(), m_brightness(1.0), m_rate(0.5)
 {
     //Intentionally left empty
 }
@@ -36,7 +36,7 @@ void ImageManager::setup()
     
     this->setupFbo();
     this->setupRectangle();
-    this->setupImage();
+    this->setupImages();
     
     ofLogNotice() <<"ImageManager::initialized" ;
     
@@ -52,23 +52,22 @@ void ImageManager::setupRectangle()
     float x = 0;
     float y = h*0.5;
     
-    m_cursor.setPosition(ofPoint(x,y));m_cursor.setCentred(true);
-    m_cursor.setHeight(h); m_cursor.setWidth(w);
+    m_cursor = ofPtr<RectangleVisual>(new RectangleVisual(ofPoint(x,y), w, h, true));
+    
+//    m_cursor.setPosition(ofPoint(x,y));m_cursor.setCentred(true);
+//    m_cursor.setHeight(h); m_cursor.setWidth(w);
     //m_cursor.setColor(ofColor(255));
 }
 
-void ImageManager::setupImage()
+void ImageManager::setupImages()
 {
-    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
-    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    this->loadImages();
     
-    m_image.setResource("SurfaceImage");
-    m_image.setWidth(width);
-    m_image.setHeight(height);
-    auto& texture = m_image.getTexture();
-    texture.readToPixels(m_pixels);
+//    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+//    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+//
+//    m_currentImage = ofPtr<ImageVisual> (new ImageVisual());
     
-    ofLogNotice() <<"ImageManager::setupImage -> w = " <<  m_pixels.getWidth() << ", h = " <<  m_pixels.getHeight();
 }
 
 void ImageManager::setupFbo()
@@ -80,35 +79,130 @@ void ImageManager::setupFbo()
     m_fbo.begin(); ofClear(0); m_fbo.end();
 }
 
+bool ImageManager::loadImages()
+{
+    //some path, may be absolute or relative to bin/data
+    string path = "images/leds/";
+    
+    ofDirectory dir(path);
+    
+    
+    ofLogNotice() <<"ImageManager::loadImages ..." ;
+    //only show png files
+    dir.allowExt("png");
+    dir.allowExt("jpeg");
+    dir.allowExt("jpg");
+    //populate the directory object
+    
+    
+    if(dir.listDir()==0){
+        ofLogNotice()<< "ImageManager::loadImages-> No image files found in: " << dir.getAbsolutePath();
+        return false;
+    }
+    
+    ofLogNotice()<< "ImageManager::loadImages-> Path: " << dir.getAbsolutePath();
+    ofLogNotice()<< "ImageManager::loadImages-> Size: " << dir.size();
+    
+    
+    //go through and print out all the paths
+    for(int i = 0; i < dir.size(); i++){
+        string name = this->getImageName(dir.getPath(i));
+        ofLogNotice()<< "ImageManager::loadImages-> Loaded: " << name;
+        AppManager::getInstance().getResourceManager().addTexture(name, dir.getPath(i));
+        this->addImages(name);
+    }
+    
+    
+    m_currentImage = m_images.begin()->second;
+    this->setPixels();
+    
+    return true;
+    
+}
+
+void ImageManager::setPixels()
+{
+    auto& texture = m_currentImage->getTexture();
+    texture.readToPixels(m_pixels);
+    
+    ofLogNotice() <<"ImageManager::setPixels -> w = " <<  m_pixels.getWidth() << ", h = " <<  m_pixels.getHeight();
+}
+
+
+void ImageManager::addImages(string& name)
+{
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    
+    
+    ofPtr<ImageVisual> image = ofPtr<ImageVisual> (new ImageVisual());
+    image->setResource(name);
+    image->setWidth(width);
+    image->setHeight(height);
+    
+    m_images[name] = image;
+    
+        //auto& texture = m_currentImage.getTexture();
+       // texture.readToPixels(m_pixels);
+    
+//    ofLogNotice() <<"ImageManager::setupImage -> w = " <<  m_pixels.getWidth() << ", h = " <<  m_pixels.getHeight();
+}
 
 void ImageManager::update()
 {
-    this->updateRectangle();
+    //this->updateRectangle();
     this->updateFbo();
     this->updateColors();
 }
 
+                                      
+void ImageManager::stop()
+{
+    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_cursor);
+}
+                                      
+void ImageManager::startAnimation(float posX, float time)
+{
+    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_cursor);
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    
+    EffectSettings settings;
+    settings.function = LINEAR; settings.type = EASE_OUT;
+    settings.startAnimation = 0; settings.animationTime = time*(m_rate+1.0);
+    auto pos = m_cursor->getPosition();
+    pos.x = width*posX;
+    
+   AppManager::getInstance().getVisualEffectsManager().createMoveEffect(m_cursor, pos, settings);
+}
+                                      
+                            
+                                      
+                                      
+
 void ImageManager::updateRectangle()
 {
     float width = AppManager::getInstance().getSettingsManager().getAppWidth();
-    auto pos = m_cursor.getPosition();
+    auto pos = m_cursor->getPosition();
     pos.x = width*AppManager::getInstance().getTimeLineManager().getCurrentTime();
-    m_cursor.setPosition(pos);
+    m_cursor->setPosition(pos);
 }
 
 void ImageManager::updateFbo()
 {
     m_fbo.begin();
         ofClear(0);
-        m_image.draw();
-        m_cursor.draw();
+        m_currentImage->draw();
+        m_cursor->draw();
     m_fbo.end();
 }
 
 void ImageManager::updateColors()
 {
-    float time = AppManager::getInstance().getTimeLineManager().getCurrentTime();
-    int x = (m_pixels.getWidth()-1) * time;
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    auto pos = m_cursor->getPosition();
+    
+   // float time = AppManager::getInstance().getTimeLineManager().getCurrentTime();
+    int x = (m_pixels.getWidth()-1) * pos.x/width;
     
     for(int y=0; y<m_pixels.getHeight(); y++)
     {
@@ -135,8 +229,25 @@ void ImageManager::drawFbo()
 
 void ImageManager::onBrightnessChange(float& value)
 {
-    ofColor color(value);
-    m_image.setColor(color);
+    //ofColor color(value);
+    //m_currentImage->setColor(color);
     m_brightness = value;
+}
+
+string ImageManager::getImageName(const string& path)
+{
+    std::vector<std::string> strs = ofSplitString(path, "/");
+    strs = ofSplitString(strs.back(), ".");
+    return strs.front();
+}
+
+void ImageManager::setImage(const string& name)
+{
+    if(m_images.find(name) == m_images.end()){
+        return;
+    }
+    
+    m_currentImage = m_images[name];
+    this->setPixels();
 }
 
