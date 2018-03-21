@@ -50,6 +50,7 @@ void TimeLineManager::setupImages()
     m_margin = width/50;
     m_timeWidth = width - 2*m_margin;
     float w = m_timeWidth/numFrames;
+    m_images.clear();
     
     for(int i=0; i<numFrames; i++)
     {
@@ -323,6 +324,8 @@ void TimeLineManager::reset()
     
     m_playMode = Stop;
     this->moveToFrame(0,m_resetTime);
+    AppManager::getInstance().getImageManager().startAnimation(0.0, m_resetTime);
+    
 }
 
 void TimeLineManager::setPanic(bool value)
@@ -353,7 +356,9 @@ void TimeLineManager::playForward()
     
     m_playMode = PlayForward;
     
-    AppManager::getInstance().getImageManager().startAnimation(1.0, m_duration);
+    float time = m_duration*(1-m_time);
+    
+    AppManager::getInstance().getImageManager().startAnimation(1.0, time);
 }
 
 void TimeLineManager::playBackwards()
@@ -363,7 +368,8 @@ void TimeLineManager::playBackwards()
     }
     
     m_playMode = PlayBackwards;
-    AppManager::getInstance().getImageManager().startAnimation(0.0, m_duration);
+    float time = m_duration*m_time;
+    AppManager::getInstance().getImageManager().startAnimation(0.0, time);
 }
 
 void TimeLineManager::stop()

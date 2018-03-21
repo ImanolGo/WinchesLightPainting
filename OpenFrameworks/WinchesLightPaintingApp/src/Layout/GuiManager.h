@@ -98,6 +98,8 @@ private:
     
     void setupImagesDropDown();
     
+    void setupWinchesDropDown();
+    
     void setupWinchesGui();
     
     void setupTimeLineGui();

@@ -43,13 +43,13 @@ void GuiManager::setup()
     
     this->setupGuiParameters();
     this->setupImagesDropDown();
+    this->setupWinchesDropDown();
     this->setupImageGui();
     this->setupWinchesGui();
     this->setupTimeLineGui();
     this->setupDmxGui();
     this->setupGuiEvents();
     this->loadGuiValues();
-
     
     ofLogNotice() <<"GuiManager::initialized";
     
@@ -95,7 +95,23 @@ void GuiManager::setupImagesDropDown()
     menu->setStripeColor(ofColor::orange);
     for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::yellow);
     m_gui.addBreak();
-  
+}
+
+void GuiManager::setupWinchesDropDown()
+{
+    string label = "GEOMETRIES:";
+    vector<string> opts;
+    auto files = AppManager::getInstance().getWinchesManager().getFileNames();
+    for(auto file: files){
+        opts.push_back(file.first);
+    }
+    
+    m_gui.addDropdown(label, opts);
+    auto menu = m_gui.getDropdown(label);
+    menu->expand(); //let's have it open by default
+    menu->setStripeColor(ofColor::orange);
+    for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::purple);
+    m_gui.addBreak();
 }
 
 void GuiManager::setupImageGui()
@@ -126,7 +142,7 @@ void GuiManager::setupWinchesGui()
     m_offset.addListener(winchesManager, &WinchesManager::onOffsetChange);
     m_parameters.add(m_offset);
     
-    m_speed.set("Speed (100%)", 100.0 , 0.0, 100.0);
+    m_speed.set("Speed", 100.0 , 0.0, 100.0);
     m_speed.addListener(winchesManager, &WinchesManager::onSpeedChange);
     m_parameters.add(m_speed);
     
@@ -150,11 +166,11 @@ void GuiManager::setupTimeLineGui()
     m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onDurationChange);
     m_parameters.add(m_timeLineDuration);
     
-    m_timeLineSegmentDuration.set("Segment Duration", 2, 0, 5);
+    m_timeLineSegmentDuration.set("Segment Duration", 0.1, 0.0, 1);
     m_timeLineDuration.addListener(timeLineManager, &TimeLineManager::onSegmentDurationChange);
     m_parameters.add(m_timeLineDuration);
     
-    m_timeLineResetDuration.set("Reset Duration", 2, 10, 30);
+    m_timeLineResetDuration.set("Reset Duration", 2, 0.0, 20);
     m_timeLineResetDuration.addListener(timeLineManager, &TimeLineManager::onResetDurationChange);
     m_parameters.add(m_timeLineResetDuration);
     
@@ -256,12 +272,14 @@ void GuiManager::saveGuiValues()
     ofXml xml;
     xml.serialize(m_parameters);
     xml.save(GUI_SETTINGS_FILE_NAME);
+    ofLogNotice() <<"GuiManager::saveGuiValues";
 }
 
 void GuiManager::loadGuiValues()
 {
     ofXml xml(GUI_SETTINGS_FILE_NAME);
     xml.deserialize(m_parameters);
+    ofLogNotice() <<"GuiManager::loadGuiValues";
 }
 
 
@@ -298,7 +316,12 @@ void GuiManager::onDropdownEvent(ofxDatGuiDropdownEvent e)
         AppManager::getInstance().getImageManager().setImage(e.target->getLabel());
         m_gui.getDropdown(e.target->getName())->setLabel("FONT: " + e.target->getLabel());
     }
-    
+    else if(e.target->getName() == "GEOMETRIES:")
+    {
+        AppManager::getInstance().getWinchesManager().setFile(e.target->getLabel());
+        m_gui.getDropdown(e.target->getName())->setLabel("FONT: " + e.target->getLabel());
+    }
+
 }   
 
 void GuiManager::onColorPickerEvent(ofxDatGuiColorPickerEvent e)

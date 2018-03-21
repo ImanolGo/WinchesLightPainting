@@ -122,6 +122,7 @@ bool ImageManager::loadImages()
 
 void ImageManager::setPixels()
 {
+    m_pixels.clear();
     auto& texture = m_currentImage->getTexture();
     texture.readToPixels(m_pixels);
     
@@ -250,4 +251,7 @@ void ImageManager::setImage(const string& name)
     m_currentImage = m_images[name];
     this->setPixels();
 }
+
+
+
 

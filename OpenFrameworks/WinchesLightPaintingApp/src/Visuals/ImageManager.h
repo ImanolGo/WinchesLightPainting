@@ -24,7 +24,6 @@
 
 class ImageManager: public Manager
 {
-
      typedef  map<string, ofPtr<ImageVisual> >      ImageMap;
     
 public:
@@ -70,6 +69,8 @@ private:
     
     void addImages(string& name);
     
+    string getImageName(const string& path);
+    
     void setPixels();
     
     void updateFbo();
@@ -79,8 +80,7 @@ private:
     void updateColors();
     
     void drawFbo();
-    
-    string getImageName(const string& path);
+
     
 private:
     

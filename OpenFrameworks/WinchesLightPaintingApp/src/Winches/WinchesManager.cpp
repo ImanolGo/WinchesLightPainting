@@ -13,7 +13,7 @@
 
 const int WinchesManager::NUM_WINCHES = 6;
 
-const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data1.csv";
+const string WinchesManager::POSITIONS_DATA_PATH = "positions/winch_data5.csv";
 
 
 WinchesManager::WinchesManager(): Manager(), m_numPositions(0), m_previousFrame(-1), m_offset(0.0), m_speed(100)
@@ -41,6 +41,7 @@ void WinchesManager::setup()
     this->setupWinches();
     this->initializePositions();
     this->initializeRanges();
+    this->loadFiles();
     
     if(this->readCsv())
     {
@@ -65,10 +66,16 @@ void WinchesManager::setupWinches()
 
 bool WinchesManager::readCsv()
 {
+    string path = POSITIONS_DATA_PATH;
+    
+    if(m_files.find(m_currentFile)!=m_files.end()){
+        path = m_files[m_currentFile];
+    }
+    
     // Load a CSV File.
-    if(m_csv.load(POSITIONS_DATA_PATH))
+    if(m_csv.load(path))
     {
-        ofLogNotice() <<"WinchesManager::readPositions-> Successfully loaded: "<< POSITIONS_DATA_PATH ;
+        ofLogNotice() <<"WinchesManager::readPositions-> Successfully loaded: "<< path ;
         ofLogNotice() <<"WinchesManager::readPositions -> csv rows: "<< m_csv.getNumRows() << ", csv cols: " << m_csv.getNumCols();
         m_numPositions = m_csv.getNumRows()/NUM_WINCHES;
         ofLogNotice() <<"WinchesManager::readPositions -> Number of positions: "<< m_numPositions;
@@ -76,7 +83,7 @@ bool WinchesManager::readCsv()
     }
     else
     {
-        ofLogNotice() <<"WinchesManager::readPositions -> Unable to load : "<< POSITIONS_DATA_PATH ;
+        ofLogNotice() <<"WinchesManager::readPositions -> Unable to load : "<< path ;
         return false;
     
     }
@@ -97,8 +104,45 @@ void WinchesManager::initializeRanges()
     m_speedRange.x = 0.05; m_speedRange.y = 0.3;    //Winch 10 Speed Range [5cm/s - 30cm/s]
 }
 
+bool WinchesManager::loadFiles()
+{
+    //some path, may be absolute or relative to bin/data
+    string path = "positions/";
+    
+    ofDirectory dir(path);
+    
+    ofLogNotice() <<"WinchesManager::loadFiles ..." ;
+    //only show csv files
+    dir.allowExt("csv");
+ 
+    //populate the directory object
+    if(dir.listDir()==0){
+        ofLogNotice()<< "WinchesManager::loadFiles-> No image files found in: " << dir.getAbsolutePath();
+        return false;
+    }
+    
+    ofLogNotice()<< "WinchesManager::loadFiles-> Path: " << dir.getAbsolutePath();
+    ofLogNotice()<< "WinchesManager::loadFiles-> Size: " << dir.size();
+    
+    //go through and print out all the paths
+    for(int i = 0; i < dir.size(); i++){
+        string name = this->getFileName(dir.getPath(i));
+        ofLogNotice()<< "WinchesManager::loadFiles-> Loaded: " << name;
+        m_files[name] = dir.getPath(i);
+    }
+    
+    m_currentFile = m_files.begin()->first;
+    
+    return true;
+    
+}
+
 void WinchesManager::loadPositions()
 {
+    for(int i=0; i< m_positions.size(); i++){
+        m_positions[i].clear();
+    }
+    
     for(int i=0; i< m_csv.getNumRows(); i++){
         int index = i % NUM_WINCHES;
         float pos = m_csv.getRow(i).getFloat(0)/1000; // Turn positions from mm to m
@@ -234,4 +278,26 @@ void WinchesManager::sendDmx(int _id, float currentPos, float prevPos, float tim
     AppManager::getInstance().getDmxManager().onSetSpeed(_id, speedPercentage);
 }
 
+string WinchesManager::getFileName(const string& path)
+{
+    std::vector<std::string> strs = ofSplitString(path, "/");
+    strs = ofSplitString(strs.back(), ".");
+    return strs.front();
+}
+
+
+void WinchesManager::setFile(const string& name)
+{
+    if(m_files.find(name)==m_files.end()){
+        return;
+    }
+    
+    m_currentFile = name;
+    if(this->readCsv())
+    {
+        this->loadPositions();
+    }
+    
+    AppManager::getInstance().getTimeLineManager().reset();
+}
 

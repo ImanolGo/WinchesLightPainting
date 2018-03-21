@@ -28,6 +28,8 @@ class WinchesManager: public Manager
 {
     static const int NUM_WINCHES;
     static const string POSITIONS_DATA_PATH;
+    
+    typedef  map<string, string >           FilesMap;       ///< defines a map of file names with its path
 
 public:
     //! Constructor
@@ -58,16 +60,26 @@ public:
     void onSpeedChange(float& value) {m_speed = value;}
     
     const ofVec2f& getDistanceRange() const {return m_distanceRange;}
+    
+    void setFile(const string& name);
+    
+    const FilesMap& getFileNames() const {return m_files;}
 
 private:
     
     bool readCsv();
     
+    bool loadFiles();
+    
+    void loadPositions();
+    
+    void addPositions(string& name);
+    
+    string getFileName(const string& path);
+    
     void initializePositions();
     
     void initializeRanges();
-    
-    void loadPositions();
     
     void setupWinches();
     
@@ -86,12 +98,13 @@ private:
 private:
     
     typedef  vector<float>  PositionsVector;                ///< defines a vecotor of winch positions
-    typedef  vector<string> FileNames;                ///< defines a vecotor of winch positions
-    typedef  map<int, PositionsVector  >    PositionsMap;     ///< defines a map of PositionsVector attached to an ID
-    typedef  map<int, ofPtr<Winch>  >       WinchMap;     ///< defines a map of Winch Smart Pointers
+    typedef  vector<string> FileNames;                      ///< defines a vecotor of winch positions
+    typedef  map<int, PositionsVector  >    PositionsMap;   ///< defines a map of PositionsVector attached to an ID
+    typedef  map<int, ofPtr<Winch>  >       WinchMap;       ///< defines a map of Winch Smart Pointers
     
     PositionsMap     m_positions;
     ofxCsv           m_csv;
+    FilesMap         m_files;
     int              m_numPositions;
     WinchMap         m_winches;
     int              m_previousFrame;
@@ -99,6 +112,7 @@ private:
     ofVec2f          m_distanceRange;
     float            m_offset;
     float            m_speed;
+    string           m_currentFile;
 
 
 };
