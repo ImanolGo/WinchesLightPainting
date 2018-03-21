@@ -67,6 +67,8 @@ public:
     
     void stop();
     
+    void playPause();
+    
 private:
     
     void setupImages();
@@ -114,6 +116,7 @@ private:
     int                         m_currentFrame;
     float                       m_time;
     PlaybackMode                m_playMode;
+    PlaybackMode                m_playDirection;
     
     
 };

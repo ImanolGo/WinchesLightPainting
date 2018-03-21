@@ -12,7 +12,7 @@
 
 
 
-TimeLineManager::TimeLineManager(): Manager(), m_currentFrame(0),m_time(0), m_duration(10), m_segmentDuration(0.2), m_resetTime(10), m_timeWidth(100), m_margin(10), m_playMode(Stop)
+TimeLineManager::TimeLineManager(): Manager(), m_currentFrame(0),m_time(0), m_duration(10), m_segmentDuration(0.2), m_resetTime(10), m_timeWidth(100), m_margin(10), m_playMode(Stop), m_playDirection(PlayForward)
 {
     //Intentionally left empty
 }
@@ -248,6 +248,7 @@ void TimeLineManager::playNext()
     
     if(m_currentFrame>= numFrames-1){
         m_playMode = Stop;
+        m_playDirection = PlayBackwards;
         return;
     }
     
@@ -272,6 +273,7 @@ void TimeLineManager::playPrevious()
     
     if(m_currentFrame<= 0){
         m_playMode = Stop;
+        m_playDirection = PlayForward;
         return;
     }
     
@@ -355,6 +357,7 @@ void TimeLineManager::playForward()
     }
     
     m_playMode = PlayForward;
+    m_playDirection = PlayForward;
     
     float time = m_duration*(1-m_time);
     
@@ -368,6 +371,7 @@ void TimeLineManager::playBackwards()
     }
     
     m_playMode = PlayBackwards;
+    m_playDirection = PlayBackwards;
     float time = m_duration*m_time;
     AppManager::getInstance().getImageManager().startAnimation(0.0, time);
 }
@@ -382,6 +386,42 @@ void TimeLineManager::stop()
     AppManager::getInstance().getImageManager().stop();
     
 }
+
+void TimeLineManager::playPause()
+{
+    if(m_playMode == Panic){
+        return;
+    }
+    else if(m_playMode == Stop){
+        if(m_playDirection == PlayForward ){
+            this->playForward();
+        }
+        else{
+            this->playBackwards();
+        }
+       
+    }
+    
+    else if(m_playMode == PlayForward){
+        if(m_time<1.0){
+            this->stop();
+        }
+        else{
+            this->playBackwards();
+        }
+    }
+    
+    else if(m_playMode == PlayBackwards){
+        if(m_time>0.0){
+            this->stop();
+        }
+        else{
+            this->playForward();
+        }
+    }
+}
+
+
 
 
 

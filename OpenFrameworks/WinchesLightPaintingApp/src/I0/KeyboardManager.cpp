@@ -84,7 +84,7 @@ void KeyboardManager::keyPressed(ofKeyEventArgs &e)
     
     else if(key == ' ')
     {
-        AppManager::getInstance().getGuiManager().onPanicToggleChange(true);
+        AppManager::getInstance().getTimeLineManager().playPause();
     }
     
 }
